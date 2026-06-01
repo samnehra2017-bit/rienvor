@@ -3922,6 +3922,14 @@ select option {
   }
 }
 
+/* Mobile has no hover to lighten the portrait, so soften the monochrome
+   at rest for a more natural look on phones. Desktop is left unchanged. */
+@media (max-width: 768px) {
+  .founder-portrait {
+    filter: grayscale(30%) contrast(1.03);
+  }
+}
+
 @media (max-width: 480px) {
   .founder-portrait-wrap {
     width: 150px;
