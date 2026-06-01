@@ -183,8 +183,8 @@
       body: 'App campaigns across CPI, CPR, and CPA models. Optimised for cost-efficient scaling, high-intent users, and maximised lifetime value. Data-driven, no guesswork.'
     },
     'social-presence': {
-      title: 'Social presence',
-      body: 'Complete social media handling — strategy, content creation, daily management, and engagement. Channels turned into revenue drivers, not vanity metrics.'
+      title: 'Reputation management',
+      body: 'Ratings recovery and review-platform management across the Play Store, Google Business Profile, Trustpilot, and Glassdoor. Structural reputation work that protects conversion, acquisition cost, and investor confidence — not crisis PR.'
     },
     seo: {
       title: 'SEO',
