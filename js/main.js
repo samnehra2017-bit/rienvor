@@ -995,6 +995,7 @@
     '.about-content', '.about-grid', '.engagement-note',
     '.diagnostic', '.impact-section',
     '.case-study', '.case-chart', '.work-mandate-group',
+    '.snapshots-section', '.snapshots-grid',
     '.trust-strip', '.footer-inner'
   ];
 
