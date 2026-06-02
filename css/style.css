@@ -3535,10 +3535,10 @@ select option {
   max-width: 520px;
 }
 
-/* Three-column grid */
+/* Two-column grid (2×2 for four cards) */
 .snapshots-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: var(--sp-4);
   margin-bottom: var(--sp-5);
 }
@@ -3723,7 +3723,7 @@ select option {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .snapshot-card:last-child {
+  .snapshot-card:last-child:nth-child(odd) {
     grid-column: 1 / -1;
     max-width: calc(50% - var(--sp-2));
   }
