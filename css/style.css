@@ -1228,6 +1228,20 @@ main {
   padding: var(--sp-12) 0;
 }
 
+/* Homepage proof band — reuses .case-study-metrics component from the Work page */
+.proof-band {
+  padding: var(--sp-12) 0;
+}
+
+.proof-band .case-study-metrics {
+  justify-content: center;
+  margin-bottom: var(--sp-6);
+}
+
+.proof-band-cta {
+  text-align: center;
+}
+
 .impact-layout {
   display: grid;
   grid-template-columns: auto 1fr;
