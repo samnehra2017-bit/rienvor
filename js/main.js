@@ -183,8 +183,8 @@
       body: 'App campaigns across CPI, CPR, and CPA models. Optimised for cost-efficient scaling, high-intent users, and maximised lifetime value. Data-driven, no guesswork.'
     },
     'social-presence': {
-      title: 'Reputation management',
-      body: 'Ratings recovery and review-platform management across the Play Store, Google Business Profile, Trustpilot, and Glassdoor. Structural reputation work that protects conversion, acquisition cost, and investor confidence — not crisis PR.'
+      title: 'Ratings recovery & management',
+      body: 'Recovering, stabilising, and maintaining the Play Store rating — the rating layer treated as the unit of work, separate from the product itself. Structural work that protects install conversion, acquisition cost, and investor confidence, not crisis PR.'
     },
     seo: {
       title: 'SEO',
@@ -433,16 +433,16 @@
 
   var impactData = {
     clarity: {
-      title: 'Strategic clarity',
-      desc: 'Faster decisions, clearer capital allocation. Founders who know where they stand move with conviction.'
+      title: 'Acquisition efficiency',
+      desc: 'Paid acquisition across CPI, CPR, and CPA — structured around downstream economics, not install volume.'
     },
     reputation: {
-      title: 'Reputation lift',
-      desc: 'Higher stakeholder trust during critical periods. Perception shaped before it becomes a liability.'
+      title: 'Ratings recovery & management',
+      desc: 'Play Store ratings recovered above the install-conversion threshold, then held against ongoing negative pressure.'
     },
     growth: {
-      title: 'Growth efficiency',
-      desc: 'Lower acquisition cost while scaling revenue. Unit economics that hold at scale.'
+      title: 'Search visibility',
+      desc: 'Organic authority built to compound — technical foundations and content architecture that hold as the market shifts.'
     }
   };
 
