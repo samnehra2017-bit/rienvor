@@ -880,7 +880,7 @@
         var s = spdState;
         var payload = {
           _subject: 'SPD diagnostic lead — RIENVOR homepage',
-          _autoresponse: 'Your storefront assessment request has reached RIENVOR. Sameer reviews each one personally and will send your read within one business day. No pitch — we follow up only if you ask.',
+          _autoresponse: 'Your storefront assessment request has reached RIENVOR. Sameer reviews each one personally and will send your read shortly. No pitch; we follow up only if you ask.',
           email: email,
           assessment: getResultState(s) || 'Incomplete',
           storefront_rating: labelFor(ratingText, s.rating),
@@ -899,7 +899,7 @@
         .then(function (r) { return r.json(); })
         .then(function () {
           if (captureWrap) captureWrap.classList.add('is-sent');
-          captureNote.textContent = 'Request received. Sameer will send your read personally within one business day.';
+          captureNote.textContent = 'Request received. Sameer will send your read personally, and soon.';
           captureInput.value = '';
         })
         .catch(function () {
