@@ -176,15 +176,15 @@
   var glossary = {
     'search-visibility': {
       title: 'Search visibility',
-      body: 'Organic growth that actually lasts. No shortcuts, no hacks — sustained authority, quality content, and rankings that drive real business results.'
+      body: 'Organic authority built to compound rather than spike — technical foundations, content architecture, and rankings that hold as the market shifts. Offered in support of the rating work, not as a standalone track.'
     },
     'user-acquisition': {
       title: 'User acquisition',
-      body: 'App campaigns across CPI, CPR, and CPA models. Optimised for cost-efficient scaling, high-intent users, and maximised lifetime value. Data-driven, no guesswork.'
+      body: 'App campaigns across CPI, CPR, and CPA models, structured around downstream economics rather than install volume. Offered in support of the rating work, not as a standalone track.'
     },
     'social-presence': {
       title: 'Ratings recovery & management',
-      body: 'Recovering, stabilising, and maintaining the Play Store rating — the rating layer treated as the unit of work, separate from the product itself. Structural work that protects install conversion, acquisition cost, and investor confidence, not crisis PR.'
+      body: 'Recovering, stabilising, and maintaining the Play Store rating — the rating layer treated as the unit of work, separate from the product itself. Built on mandates across 70+ apps: recoveries from 3.6–3.8 baselines into the 4.2–4.5 range, held month over month on review bases past 100,000. Structural work, not crisis PR.'
     },
     seo: {
       title: 'SEO',
@@ -574,7 +574,7 @@
       ],
       acquisitionHigh: [
         'High acquisition velocity may amplify unresolved storefront instability.',
-        'Aggressive CPI/CPR scaling into a degraded storefront environment compounds unit economics pressure.',
+        'Aggressive paid scaling into a degraded storefront environment compounds unit economics pressure.',
         'Large-scale acquisition into unstable reputation environments frequently accelerates negative sentiment cycles.'
       ],
       confidenceLow: [
