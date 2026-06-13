@@ -243,29 +243,73 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
           </div>
         </div>
 
-        <p class="approach-subhead approach-subhead--spaced">How RIENVOR works</p>
-        <div class="approach-grid">
-          <div class="approach-item">
-            <span class="approach-step" aria-hidden="true">I</span>
-            <h3>Assess rating health</h3>
-            <p>Review recent rating trends, complaint patterns, and the sources of negative pressure.</p>
-          </div>
-          <div class="approach-item">
-            <span class="approach-step" aria-hidden="true">II</span>
-            <h3>Stabilize</h3>
-            <p>Slow the negative pressure so the rating stops sliding.</p>
-          </div>
-          <div class="approach-item">
-            <span class="approach-step" aria-hidden="true">III</span>
-            <h3>Recover</h3>
-            <p>Lift the rating back above the threshold where installs convert.</p>
-          </div>
-          <div class="approach-item">
-            <span class="approach-step" aria-hidden="true">IV</span>
-            <h3>Maintain</h3>
-            <p>Monitor rating health over time, surfacing recurring complaint patterns before they become rating problems.</p>
-          </div>
-        </div>
+        <p class="approach-subhead approach-subhead--spaced">What happens after you engage</p>
+
+        <figure class="timeline-arc" role="group" aria-label="Rating trajectory across an engagement: from a sub-4.0 baseline, the ongoing loss is arrested to 4.0 within the first month, the rating is then lifted to a 4.2 to 4.5 target over the following months, and held within that band thereafter.">
+          <svg class="timeline-arc-svg" viewBox="0 0 960 230" preserveAspectRatio="none" aria-hidden="true">
+            <!-- baseline axis (rating 3.5) -->
+            <line class="timeline-arc-axis" x1="50" y1="200" x2="920" y2="200" />
+            <!-- 4.0 trust threshold -->
+            <line class="timeline-arc-ref" x1="50" y1="123" x2="920" y2="123" stroke-dasharray="3 6" />
+            <!-- faint phase dividers -->
+            <line class="timeline-arc-div" x1="210" y1="40" x2="210" y2="200" />
+            <line class="timeline-arc-div" x1="340" y1="40" x2="340" y2="200" />
+            <line class="timeline-arc-div" x1="620" y1="40" x2="620" y2="200" />
+            <line class="timeline-arc-div" x1="760" y1="40" x2="760" y2="200" />
+            <!-- rating curve: slide → arrest to 4.0 → climb to target → held band -->
+            <path class="timeline-arc-line"
+              d="M 50 188
+                 C 130 190, 220 195, 300 192
+                 C 360 188, 405 150, 430 123
+                 S 560 86, 620 76
+                 C 680 68, 725 62, 760 61
+                 C 790 68, 815 78, 840 60
+                 C 865 50, 895 82, 920 64" />
+            <circle class="timeline-arc-dot" cx="50" cy="188" r="4" />
+            <circle class="timeline-arc-dot timeline-arc-dot--accent" cx="430" cy="123" r="5" />
+            <circle class="timeline-arc-dot timeline-arc-dot--accent" cx="620" cy="76" r="4.5" />
+            <circle class="timeline-arc-dot timeline-arc-dot--accent" cx="840" cy="60" r="4.5" />
+          </svg>
+          <figcaption class="timeline-arc-caption">
+            <span class="timeline-arc-mark timeline-arc-mark--start">3.6 — baseline</span>
+            <span class="timeline-arc-mark timeline-arc-mark--mid">4.0 — loss arrested, month 1</span>
+            <span class="timeline-arc-mark timeline-arc-mark--end">4.2–4.5 — held</span>
+          </figcaption>
+          <p class="timeline-arc-note">Illustrative of how a recovery is sequenced. The exact band a mandate holds is set with the client — against their goals, budget, and the pressure the app faces.</p>
+        </figure>
+
+        <ol class="engagement-timeline">
+          <li class="timeline-phase">
+            <span class="timeline-phase-num" aria-hidden="true">01</span>
+            <p class="timeline-phase-when">The first call</p>
+            <h3>Discovery</h3>
+            <p>A private conversation to understand the app, the pressure the rating is under, and whether there is genuine fit. No pitch, no obligation.</p>
+          </li>
+          <li class="timeline-phase">
+            <span class="timeline-phase-num" aria-hidden="true">02</span>
+            <p class="timeline-phase-when">Week one</p>
+            <h3>Diagnostic</h3>
+            <p>The review base is read closely — what is actually dragging the rating, separated from noise — and a baseline is set. That read is yours whether or not we go further.</p>
+          </li>
+          <li class="timeline-phase">
+            <span class="timeline-phase-num" aria-hidden="true">03</span>
+            <p class="timeline-phase-when">Month one, then the months after</p>
+            <h3>Recovery</h3>
+            <p>The decline is arrested first: the rating is carried back to 4.0 quickly to stop the daily loss, then lifted steadily toward a 4.2–4.5 target over the months that follow.</p>
+          </li>
+          <li class="timeline-phase">
+            <span class="timeline-phase-num" aria-hidden="true">04</span>
+            <p class="timeline-phase-when">As the target is reached</p>
+            <h3>Stabilisation</h3>
+            <p>The gain is locked in so it holds rather than snaps back — review quality kept ahead of acquisition so the new floor is real, not a spike.</p>
+          </li>
+          <li class="timeline-phase">
+            <span class="timeline-phase-num" aria-hidden="true">05</span>
+            <p class="timeline-phase-when">Ongoing</p>
+            <h3>Maintenance</h3>
+            <p>The rating is held within a healthy band against ongoing negative pressure — tuned to your goals and budget — with the monthly rating-health report keeping the read current.</p>
+          </li>
+        </ol>
         <div class="engagement-note">
           <p><strong>Not a theoretical practice.</strong> RIENVOR is built on work across 70+ Play Store apps and continues to actively manage rating health for consumer applications today.</p>
         </div>
