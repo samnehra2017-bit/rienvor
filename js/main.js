@@ -424,6 +424,32 @@
   }
 
   // =========================================
+  // 3b. EMAIL LINKS — clipboard fallback
+  // mailto: fails silently when no desktop mail app is configured
+  // (most webmail users). Copy the address on click so every visitor
+  // gets something; the mail client still opens where one exists.
+  // =========================================
+
+  document.querySelectorAll('a[href^="mailto:"]').forEach(function (link) {
+    link.addEventListener('click', function () {
+      var address = link.getAttribute('href').replace(/^mailto:/, '').split('?')[0];
+      if (!(navigator.clipboard && navigator.clipboard.writeText)) return;
+      navigator.clipboard.writeText(address).then(function () {
+        var note = link.parentNode.querySelector('.email-copied-note');
+        if (!note) {
+          note = document.createElement('span');
+          note.className = 'email-copied-note';
+          note.setAttribute('role', 'status');
+          link.insertAdjacentElement('afterend', note);
+        }
+        note.textContent = 'Address copied';
+        note.classList.add('visible');
+        setTimeout(function () { note.classList.remove('visible'); }, 2400);
+      }).catch(function () { /* clipboard unavailable — the mailto attempt stands alone */ });
+    });
+  });
+
+  // =========================================
   // 4. IMPACT TABS
   // Full tablist/tab ARIA pattern with arrow key navigation
   // =========================================

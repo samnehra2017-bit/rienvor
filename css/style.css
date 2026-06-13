@@ -3991,3 +3991,20 @@ select option {
     display: none;
   }
 }
+
+/* =========================================
+   EMAIL COPY FEEDBACK
+   ========================================= */
+.email-copied-note {
+  display: inline-block;
+  margin-left: 0.5em;
+  font-size: 0.78em;
+  letter-spacing: 0.04em;
+  color: var(--accent);
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
+
+.email-copied-note.visible {
+  opacity: 1;
+}
