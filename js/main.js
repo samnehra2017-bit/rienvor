@@ -499,8 +499,8 @@
     });
   });
 
-  // Initialise first tab
-  var defaultImpactBtn = document.querySelector('.impact-btn[data-metric="clarity"]');
+  // Initialise first tab — Reputation leads; ratings is the practice, acquisition supports it
+  var defaultImpactBtn = document.querySelector('.impact-btn[data-metric="reputation"]');
   if (defaultImpactBtn) activateImpactTab(defaultImpactBtn);
 
   // =========================================
@@ -656,13 +656,32 @@
       return 'Low Pressure Environment';
     }
 
+    // ── Personalised lead observation — echoes the visitor's own selections ──
+    var spdRatingWords = ['below 3.5', '3.5–3.9', '4.0–4.2', '4.3–4.5', '4.5+'];
+    var spdScaleWords  = ['under 1K reviews', '1K–10K reviews', '10K–50K reviews', '50K–100K reviews', '100K+ reviews'];
+
+    function personalObservation(s) {
+      if (s.rating === null) return null;
+      var r = spdRatingWords[s.rating];
+      var sc = s.scale !== null ? spdScaleWords[s.scale] : null;
+      var base = sc ? 'At ' + r + ' on a base of ' + sc : 'At ' + r;
+
+      if (s.rating <= 1) {
+        return base + ', the rating is turning away a share of every visit the listing receives — and any paid spend is buying traffic the storefront then loses.';
+      }
+      if (s.rating === 2) {
+        return base + ', the rating sits at the trust threshold — small shifts in review velocity move install conversion in either direction.';
+      }
+      return base + ', the rating is an asset worth defending — the cost of slippage below 4.0 is far higher than the cost of holding position.';
+    }
+
     // ── Select contextual observations ──
     function getObservations(s) {
       var pool = [];
+      var personal = personalObservation(s);
+      if (personal) pool.push(personal);
 
-      if (s.rating !== null && s.rating <= 1) pool.push(observations.ratingLow[Math.floor(Math.random() * observations.ratingLow.length)]);
-      else if (s.rating === 2)                pool.push(observations.ratingMid[Math.floor(Math.random() * observations.ratingMid.length)]);
-      else if (s.rating !== null && s.rating >= 3) pool.push(observations.ratingHigh[Math.floor(Math.random() * observations.ratingHigh.length)]);
+      // Rating band is covered by the personalised lead observation above.
 
       if (s.scale !== null && s.scale >= 3)   pool.push(observations.scaleLarge[Math.floor(Math.random() * observations.scaleLarge.length)]);
       else if (s.scale !== null && s.scale <= 1) pool.push(observations.scaleSmall[Math.floor(Math.random() * observations.scaleSmall.length)]);
@@ -675,8 +694,8 @@
       if (s.confidence !== null && s.confidence >= 2) pool.push(observations.confidenceLow[s.confidence - 1] || observations.confidenceLow[0]);
       else if (s.confidence !== null && s.confidence === 0) pool.push(observations.confidenceHigh[Math.floor(Math.random() * observations.confidenceHigh.length)]);
 
-      // Deduplicate and return up to 2 — more than 2 reads as noisy
-      return pool.filter(function (v, i, a) { return a.indexOf(v) === i; }).slice(0, 2);
+      // Deduplicate and return up to 3 — the personalised lead plus at most two generic reads
+      return pool.filter(function (v, i, a) { return a.indexOf(v) === i; }).slice(0, 3);
     }
 
     // ── DOM refs ──
@@ -835,6 +854,7 @@
         var s = spdState;
         var payload = {
           _subject: 'SPD diagnostic lead — RIENVOR homepage',
+          _autoresponse: 'Your storefront assessment request has reached RIENVOR. Sameer reviews each one personally and will send your read within one business day. No pitch — we follow up only if you ask.',
           email: email,
           assessment: getResultState(s) || 'Incomplete',
           storefront_rating: labelFor(ratingText, s.rating),
@@ -853,7 +873,7 @@
         .then(function (r) { return r.json(); })
         .then(function () {
           if (captureWrap) captureWrap.classList.add('is-sent');
-          captureNote.textContent = 'Sent. The assessment is on its way to your inbox.';
+          captureNote.textContent = 'Request received. Sameer will send your read personally within one business day.';
           captureInput.value = '';
         })
         .catch(function () {

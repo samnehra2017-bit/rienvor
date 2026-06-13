@@ -3982,3 +3982,12 @@ select option {
     height: 150px;
   }
 }
+
+/* =========================================
+   HERO EYEBROW — trim audience clause on small screens
+   ========================================= */
+@media (max-width: 600px) {
+  .hero-eyebrow .eyebrow-extended {
+    display: none;
+  }
+}
