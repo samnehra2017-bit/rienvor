@@ -1127,6 +1127,12 @@ main {
   border-bottom: none;
 }
 
+/* Lead verb brighter than its description, so the steps scan at a glance. */
+.ops-panel-inner-pad li strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
 /* Stack of panels */
 .ops-panel-stack {
   display: flex;
@@ -1236,6 +1242,14 @@ main {
 .proof-band .case-study-metrics {
   justify-content: center;
   margin-bottom: var(--sp-6);
+}
+
+/* Proof is the page's strongest asset — give the headline numbers room to land. */
+.proof-band .case-metric-value {
+  font-size: clamp(2.4rem, 6.5vw, 3.6rem);
+}
+.proof-band .case-metric-arrow {
+  font-size: 2.4rem;
 }
 
 .proof-band-cta {
