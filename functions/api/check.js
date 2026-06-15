@@ -36,38 +36,9 @@ export function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
 }
 
-export async function onRequestGet({ request }) {
+export function onRequestGet({ request }) {
   const u = new URL(request.url);
-  // Temporary self-test: probe a host directly from the Worker to see exactly what fetch does.
-  // ?selftest=itunes | apple-rss | play  — returns version marker + raw fetch outcome.
-  const st = u.searchParams.get("selftest");
-  if (st) return selftest(st);
   return handle(u.searchParams.get("link") || "", u.searchParams.get("country") || "", u.searchParams.get("debug"));
-}
-
-async function selftest(which) {
-  const VERSION = "diag4";
-  const BROWSER = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
-  const probes = [
-    { name: "itunes-lookup-plain", url: "https://itunes.apple.com/lookup?id=310633997&country=in", headers: {} },
-    { name: "itunes-lookup-browser", url: "https://itunes.apple.com/lookup?id=310633997&country=in", headers: { "User-Agent": BROWSER, "Accept": "application/json" } },
-    { name: "itunes-search", url: "https://itunes.apple.com/search?term=whatsapp&country=in&entity=software&limit=1", headers: { "User-Agent": BROWSER } },
-    { name: "appsapple-page", url: "https://apps.apple.com/in/app/id310633997", headers: { "User-Agent": BROWSER, "Accept-Language": "en-US,en" } },
-    { name: "amp-api", url: "https://amp-api.apps.apple.com/v1/catalog/in/apps/310633997", headers: { "User-Agent": BROWSER } },
-  ];
-  const results = [];
-  for (const p of probes) {
-    const r0 = { name: p.name };
-    try {
-      const r = await fetch(p.url, { headers: p.headers });
-      r0.status = r.status;
-      const text = await r.text();
-      r0.len = text.length;
-      r0.sample = text.slice(0, 100).replace(/\s+/g, " ");
-    } catch (e) { r0.err = String((e && e.message) || e); }
-    results.push(r0);
-  }
-  return json(200, { ok: true, version: VERSION, which, results });
 }
 
 export async function onRequestPost({ request }) {

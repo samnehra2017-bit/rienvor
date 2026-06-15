@@ -72,24 +72,27 @@ function fmtDate(d) {
 }
 
 // ----------------------------------------------------------------- http
+// Header policy matters from a shared/datacenter IP:
+//  - Google Play serves fine with a browser User-Agent (and returns a fuller result set).
+//  - Apple's iTunes endpoints 403 a *browser-spoofing* User-Agent from datacenter ranges
+//    (anti-scraping) but allow the default UA — so iTunes calls send NO browser UA.
+const PLAY_HEADERS = { "User-Agent": UA, "Accept-Language": "en" };
+const ITUNES_HEADERS = {};
+
 async function httpFetch(url, opts = {}, timeoutMs = 15000) {
   const ctrl = new AbortController();
   const timer = setTimeout(() => ctrl.abort(), timeoutMs);
   try {
-    return await fetch(url, {
-      ...opts,
-      signal: ctrl.signal,
-      headers: { "User-Agent": UA, "Accept-Language": "en", ...(opts.headers || {}) },
-    });
+    return await fetch(url, { ...opts, signal: ctrl.signal });
   } finally { clearTimeout(timer); }
 }
-async function fetchJson(url) {
-  const r = await httpFetch(url);
+async function fetchJson(url, headers) {
+  const r = await httpFetch(url, { headers });
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return r.json();
 }
-async function fetchText(url) {
-  const r = await httpFetch(url);
+async function fetchText(url, headers) {
+  const r = await httpFetch(url, { headers });
   if (!r.ok) throw new Error(`HTTP ${r.status}`);
   return r.text();
 }
@@ -127,7 +130,7 @@ function parsePlayDataset(htmlText) {
 async function fetchPlay(appId, country) {
   const url = `https://play.google.com/store/apps/details?id=${encodeURIComponent(appId)}&hl=en&gl=${country}`;
   const [htmlText, reviews] = await Promise.all([
-    fetchText(url),
+    fetchText(url, PLAY_HEADERS),
     playLowReviews(appId, country),
   ]);
   const ds = parsePlayDataset(htmlText);
@@ -157,7 +160,7 @@ async function playReviewsPage(appId, country, score, count) {
   const body = "f.req=" + encodeURIComponent(JSON.stringify([[["oCPfdb", inner, null, "generic"]]])) + "\n";
   const r = await httpFetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8" },
+    headers: { "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8", ...PLAY_HEADERS },
     body,
   });
   const txt = await r.text();
@@ -194,7 +197,7 @@ async function playLowReviews(appId, country) {
 
 // ----------------------------------------------------------------- App Store: fetch
 async function fetchAppstore(trackId, country) {
-  const look = await fetchJson(`https://itunes.apple.com/lookup?id=${trackId}&country=${country}`);
+  const look = await fetchJson(`https://itunes.apple.com/lookup?id=${trackId}&country=${country}`, ITUNES_HEADERS);
   const results = look.results || [];
   if (!results.length) throw new InputError(`App id ${trackId} not found on the ${country.toUpperCase()} App Store.`);
   const a = results[0];
@@ -214,7 +217,7 @@ async function fetchAppstore(trackId, country) {
 async function appstoreLowReviews(trackId, country) {
   let feed;
   try {
-    feed = await fetchJson(`https://itunes.apple.com/${country}/rss/customerreviews/page=1/id=${trackId}/sortby=mostrecent/json`);
+    feed = await fetchJson(`https://itunes.apple.com/${country}/rss/customerreviews/page=1/id=${trackId}/sortby=mostrecent/json`, ITUNES_HEADERS);
   } catch (e) { return []; }
   let entries = (feed.feed && feed.feed.entry) || [];
   if (!Array.isArray(entries)) entries = entries ? [entries] : [];
@@ -330,7 +333,7 @@ function peerBand(field, subjN) {
 
 async function playSearch(query, country, nHits) {
   const url = `https://play.google.com/store/search?q=${encodeURIComponent(query)}&c=apps&hl=en&gl=${country}`;
-  const htmlText = await fetchText(url);
+  const htmlText = await fetchText(url, PLAY_HEADERS);
   const ds = parsePlayDataset(htmlText);
   const root = ds["ds:4"];
   if (!root) return [];
