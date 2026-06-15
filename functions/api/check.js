@@ -36,9 +36,33 @@ export function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
 }
 
-export function onRequestGet({ request }) {
+export async function onRequestGet({ request }) {
   const u = new URL(request.url);
+  if (u.searchParams.get("selftest")) return selftest();
   return handle(u.searchParams.get("link") || "", u.searchParams.get("country") || "", u.searchParams.get("debug"));
+}
+
+async function selftest() {
+  const VERSION = "diag5";
+  const RSS = "https://itunes.apple.com/in/rss/customerreviews/page=1/id=310633997/sortby=mostrecent/json";
+  const probes = [
+    { name: "rss-no-headers", url: RSS, headers: {} },
+    { name: "rss-accept-json", url: RSS, headers: { "Accept": "application/json" } },
+    { name: "rss-plain-ua", url: RSS, headers: { "User-Agent": "RIENVOR-HealthCheck/1.0" } },
+  ];
+  const results = [];
+  for (const p of probes) {
+    const r0 = { name: p.name };
+    try {
+      const r = await fetch(p.url, { headers: p.headers });
+      r0.status = r.status;
+      const text = await r.text();
+      r0.len = text.length;
+      try { const j = JSON.parse(text); const e = (j.feed && j.feed.entry) || []; r0.entries = Array.isArray(e) ? e.length : (e ? 1 : 0); } catch (_) { r0.entries = "not-json"; }
+    } catch (e) { r0.err = String((e && e.message) || e); }
+    results.push(r0);
+  }
+  return json(200, { ok: true, version: VERSION, results });
 }
 
 export async function onRequestPost({ request }) {
