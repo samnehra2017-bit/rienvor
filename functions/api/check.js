@@ -43,26 +43,31 @@ export async function onRequestGet({ request }) {
 }
 
 async function selftest() {
-  const VERSION = "diag5";
-  const RSS = "https://itunes.apple.com/in/rss/customerreviews/page=1/id=310633997/sortby=mostrecent/json";
-  const probes = [
-    { name: "rss-no-headers", url: RSS, headers: {} },
-    { name: "rss-accept-json", url: RSS, headers: { "Accept": "application/json" } },
-    { name: "rss-plain-ua", url: RSS, headers: { "User-Agent": "RIENVOR-HealthCheck/1.0" } },
-  ];
-  const results = [];
-  for (const p of probes) {
-    const r0 = { name: p.name };
-    try {
-      const r = await fetch(p.url, { headers: p.headers });
-      r0.status = r.status;
-      const text = await r.text();
-      r0.len = text.length;
-      try { const j = JSON.parse(text); const e = (j.feed && j.feed.entry) || []; r0.entries = Array.isArray(e) ? e.length : (e ? 1 : 0); } catch (_) { r0.entries = "not-json"; }
-    } catch (e) { r0.err = String((e && e.message) || e); }
-    results.push(r0);
-  }
-  return json(200, { ok: true, version: VERSION, results });
+  const VERSION = "diag6";
+  const BROWSER = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+  const out = { ok: true, version: VERSION };
+  try {
+    // 1) the public app web page (works from CF) — carries a bearer token for amp-api
+    const pageR = await fetch("https://apps.apple.com/in/app/id310633997", { headers: { "User-Agent": BROWSER, "Accept-Language": "en-US,en" } });
+    out.pageStatus = pageR.status;
+    const html = await pageR.text();
+    const m = html.match(/eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+/);
+    out.tokenFound = !!m;
+    if (m) {
+      const token = m[0];
+      out.tokenLen = token.length;
+      // 2) amp-api reviews with the page's token
+      const ampR = await fetch("https://amp-api.apps.apple.com/v1/catalog/in/apps/310633997/reviews?l=en&limit=10&sort=mostRecent&platform=web&additionalPlatforms=appletv,ipad,iphone,mac", {
+        headers: { "Authorization": `Bearer ${token}`, "Origin": "https://apps.apple.com", "User-Agent": BROWSER },
+      });
+      out.ampStatus = ampR.status;
+      const ampText = await ampR.text();
+      out.ampLen = ampText.length;
+      try { const j = JSON.parse(ampText); out.reviewCount = (j.data && j.data.length) || 0; out.firstReview = j.data && j.data[0] && { rating: j.data[0].attributes.rating, title: j.data[0].attributes.title, date: j.data[0].attributes.date }; }
+      catch (_) { out.ampSample = ampText.slice(0, 120); }
+    }
+  } catch (e) { out.err = String((e && e.message) || e); }
+  return json(200, out);
 }
 
 export async function onRequestPost({ request }) {
