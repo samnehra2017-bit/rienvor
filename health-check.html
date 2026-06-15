@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id=GTM-K2M42K7P';f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2M42K7P');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Free Rating Health Check | RIENVOR – App-Store Ratings Recovery &amp; Management</title>
+  <meta name="description" content="A free, instant read on where your app's rating actually stands — your live Play Store / App Store numbers, the gap to the 4.0 install-conversion line, your real recent reviews, and where you sit against comparable apps. No sign-up.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0b">
+  <link rel="canonical" href="https://rienvor.com/health-check.html">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+  <meta property="og:title" content="Free Rating Health Check | RIENVOR">
+  <meta property="og:description" content="An instant, free read on where your app's rating stands — live numbers, the gap to 4.0, your real reviews, and where you sit against comparable apps.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rienvor.com/health-check.html">
+  <meta property="og:image" content="https://rienvor.com/images/og-image.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Free Rating Health Check | RIENVOR">
+  <meta name="twitter:description" content="An instant, free read on where your app's rating stands.">
+  <meta name="twitter:image" content="https://rienvor.com/images/og-image.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "RIENVOR Rating Health Check",
+    "url": "https://rienvor.com/health-check.html",
+    "applicationCategory": "BusinessApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "description": "A free instant diagnosis of an app's store rating: live rating, ratings count and installs, the gap to the 4.0 install-conversion line, recent reviews, and where the app stands among comparable apps.",
+    "provider": { "@type": "Organization", "name": "RIENVOR", "url": "https://rienvor.com" }
+  }
+  </script>
+
+  <style>
+  /* ---- Rating Health Check tool (scoped) ---- */
+  .hc-tool { padding: var(--sp-6) 0 var(--sp-10); --hc-rust:#cf7d54; --hc-green:#8fb56a; }
+  .hc-form { max-width: 760px; }
+  .hc-input-row { display:flex; gap:.6rem; flex-wrap:wrap; align-items:stretch; }
+  .hc-link { flex:1 1 320px; min-width:0; background:var(--surface); border:1px solid var(--border-subtle);
+    color:var(--text); border-radius:var(--radius-sm); padding:.85rem 1rem; font:400 var(--text-base)/1.4 "Inter",sans-serif; }
+  .hc-link:focus { outline:none; border-color:var(--accent); }
+  .hc-country { background:var(--surface); border:1px solid var(--border-subtle); color:var(--text);
+    border-radius:var(--radius-sm); padding:.85rem .8rem; font:400 var(--text-sm)/1 "Inter",sans-serif; }
+  .hc-run { white-space:nowrap; }
+  .hc-hint { margin-top:.7rem; color:var(--text-soft); font-size:var(--text-xs); letter-spacing:.02em; }
+  .hc-status { margin-top:var(--sp-3); color:var(--text-muted); font-size:var(--text-sm); }
+  .hc-status.err { color:var(--hc-rust); }
+  .hc-spin { display:inline-block; width:13px; height:13px; margin-right:.5rem; vertical-align:-1px;
+    border:2px solid currentColor; border-top-color:transparent; border-radius:50%; animation:hc-spin .7s linear infinite; }
+  @keyframes hc-spin { to { transform:rotate(360deg); } }
+
+  .hc-result { margin-top:var(--sp-4); }
+  .hc-card { background:var(--surface-raised); border:1px solid var(--border-subtle); border-radius:var(--radius-lg);
+    padding:var(--sp-5) var(--sp-5) var(--sp-4); box-shadow:var(--shadow-md); }
+  .hc-card-head h2 { font:600 2rem/1.1 "Cormorant Garamond",serif; color:var(--text); margin:0; }
+  .hc-card-sub { margin-top:.4rem; color:var(--text-muted); font-size:var(--text-sm); }
+  .hc-stats { display:flex; gap:2.4rem; flex-wrap:wrap; margin-top:var(--sp-3); }
+  .hc-stat .num { font:600 2.2rem/1 "Cormorant Garamond",serif; color:var(--text); }
+  .hc-stat .num .star { color:var(--accent); font-size:1.5rem; }
+  .hc-stat .lbl { margin-top:.35rem; font-size:var(--text-xs); letter-spacing:.12em; text-transform:uppercase; color:var(--text-soft); }
+
+  .hc-gauge { margin-top:var(--sp-4); }
+  .hc-track { position:relative; height:8px; background:var(--surface); border:1px solid var(--border-subtle); border-radius:var(--radius-pill); }
+  .hc-fill { position:absolute; top:0; bottom:0; left:0; border-radius:var(--radius-pill) 0 0 var(--radius-pill); background:var(--hc-rust); }
+  .hc-fill.ok { background:var(--accent); }
+  .hc-line { position:absolute; top:-6px; bottom:-6px; left:62.5%; border-left:2px solid var(--accent); }
+  .hc-marker { position:absolute; top:50%; width:13px; height:13px; border-radius:50%; transform:translate(-50%,-50%);
+    background:var(--hc-rust); border:2px solid var(--surface-raised); }
+  .hc-marker.ok { background:var(--accent); }
+  .hc-gtags { position:relative; height:18px; margin-top:.7rem; font-size:var(--text-xs); }
+  .hc-cur { position:absolute; transform:translateX(-50%); color:var(--hc-rust); white-space:nowrap; }
+  .hc-cur.ok { color:var(--accent); }
+  .hc-thr { position:absolute; left:62.5%; transform:translateX(-50%); color:var(--accent); white-space:nowrap; }
+  .hc-scale { display:flex; justify-content:space-between; margin-top:.4rem; font-size:var(--text-xs); color:var(--text-soft); }
+
+  .hc-headline { margin-top:var(--sp-4); padding:1rem 1.2rem; border:1px solid var(--border); background:var(--accent-dim); border-radius:var(--radius-md); }
+  .hc-headline.problem { border-color:rgba(207,125,84,.4); background:rgba(207,125,84,.08); }
+  .hc-headline .big { font:600 1.35rem/1.25 "Cormorant Garamond",serif; color:var(--accent); }
+  .hc-headline.problem .big { color:var(--hc-rust); }
+  .hc-headline.ok .big { color:var(--hc-green); }
+  .hc-headline .small { margin-top:.4rem; color:var(--text-muted); font-size:var(--text-sm); }
+  .hc-cmp-hero { margin-top:var(--sp-2); }
+  .hc-rank { font:600 1.9rem/1.2 "Cormorant Garamond",serif; color:var(--text); }
+  .hc-rank b { color:var(--hc-rust); font-weight:700; }
+  .hc-rank-sub { margin-top:.7rem; color:var(--text-muted); font-size:var(--text-base); line-height:1.55; max-width:60ch; }
+  .hc-stats.hc-support { margin-top:var(--sp-3); gap:2.8rem; }
+  .hc-support .num { font-size:1.9rem; }
+  .hc-support-cap { margin-top:.9rem; color:var(--text-soft); font-size:var(--text-xs); }
+
+  .hc-sec { margin-top:var(--sp-4); }
+  .hc-sec-label { font-size:var(--text-xs); letter-spacing:.14em; text-transform:uppercase; font-weight:600; margin-bottom:.5rem; color:var(--text-soft); }
+  .hc-sec-label.problem { color:var(--hc-rust); }
+  .hc-sec-note { color:var(--text-muted); font-size:var(--text-sm); margin-bottom:1rem; max-width:62ch; }
+  .hc-sec-note b { color:var(--text); }
+  .hc-revs { display:flex; flex-direction:column; gap:.7rem; }
+  .hc-rev { border:1px solid var(--border-subtle); border-left:3px solid var(--hc-rust); border-radius:var(--radius-sm); padding:.8rem 1rem; background:var(--surface); }
+  .hc-rev-top { display:flex; justify-content:space-between; align-items:center; margin-bottom:.4rem; }
+  .hc-rev-stars { color:var(--hc-rust); font-size:.8rem; letter-spacing:1px; }
+  .hc-rev-date { color:var(--text-soft); font-size:var(--text-xs); }
+  .hc-rev-text { color:var(--text); font-size:var(--text-sm); line-height:1.5; }
+
+  .hc-comps { display:flex; flex-direction:column; border:1px solid var(--border-subtle); border-radius:var(--radius-md); overflow:hidden; }
+  .hc-comp { display:flex; justify-content:space-between; align-items:center; gap:1rem; padding:.7rem 1.1rem; border-bottom:1px solid var(--border-subtle); }
+  .hc-comp:last-child { border-bottom:none; }
+  .hc-comp.you { background:rgba(207,125,84,.08); }
+  .hc-comp-main { display:flex; flex-direction:column; gap:.2rem; min-width:0; }
+  .hc-comp-name { color:var(--text); font-size:var(--text-base); }
+  .hc-comp-meta { color:var(--text-soft); font-size:var(--text-xs); }
+  .hc-tag { font-size:.62rem; letter-spacing:.1em; text-transform:uppercase; color:var(--hc-rust); border:1px solid rgba(207,125,84,.4);
+    border-radius:var(--radius-pill); padding:.1rem .5rem; margin-left:.5rem; vertical-align:1px; }
+  .hc-comp-rate { font:600 1.2rem/1 "Cormorant Garamond",serif; color:var(--accent); flex-shrink:0; }
+  .hc-comp.you .hc-comp-rate { color:var(--hc-rust); }
+  .hc-close { margin-top:.9rem; color:var(--text-muted); font-size:var(--text-sm); line-height:1.55; max-width:64ch; }
+
+  .hc-card-cta { margin-top:var(--sp-4); padding-top:var(--sp-3); border-top:1px solid var(--border-subtle); }
+  .hc-card-cta p { font:italic 500 1.2rem/1.4 "Cormorant Garamond",serif; color:var(--text); }
+  .hc-card-cta .accent { color:var(--accent); }
+  .hc-card-cta .act { margin-top:.8rem; font-size:var(--text-sm); }
+  .hc-foot-note { margin-top:1rem; color:var(--text-soft); font-size:var(--text-xs); }
+  @media (max-width:600px){ .hc-stats{ gap:1.5rem; } .hc-card{ padding:var(--sp-4) 1.1rem; } }
+  </style>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2M42K7P"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <a href="#main-content" class="hidden-focusable">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <div class="logo">
+        <a href="/" aria-label="RIENVOR — Home">RIENVOR</a><span class="page-label" aria-hidden="true">/ Rating Check</span>
+      </div>
+      <button
+        class="mobile-nav-toggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="main-navigation"
+        type="button">
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+      </button>
+      <nav id="main-navigation" class="main-nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/about.html">About</a>
+        <a href="/services.html">Services</a>
+        <a href="/work.html">Work</a>
+        <a href="/blog.html">Insights</a>
+        <a href="/health-check.html" class="active" aria-current="page">Rating Check</a>
+        <a href="/contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="nav-overlay" aria-hidden="true" role="presentation"></div>
+
+  <main id="main-content">
+
+    <section class="page-hero" aria-labelledby="hc-hero-heading">
+      <div class="container">
+        <p class="hero-eyebrow">Free · Instant · No sign-up</p>
+        <h1 id="hc-hero-heading">Where does your rating<br><em>actually</em> stand?</h1>
+        <p class="page-subhead">Paste your store link for a live read: your numbers, the gap to the 4.0 install-conversion line, your real recent reviews, and where you sit against comparable apps.</p>
+      </div>
+    </section>
+
+    <section class="hc-tool" aria-labelledby="hc-tool-heading">
+      <div class="container">
+        <h2 id="hc-tool-heading" class="visually-trap" style="position:absolute;left:-9999px">Run a rating health check</h2>
+        <div class="hc-form">
+          <div class="hc-input-row">
+            <input id="hc-link" class="hc-link" type="text" inputmode="url" autocomplete="off"
+                   placeholder="Paste your Google Play or App Store link"
+                   aria-label="Google Play or App Store link">
+            <select id="hc-country" class="hc-country" aria-label="Storefront">
+              <option value="">India</option>
+              <option value="us">United States</option>
+              <option value="gb">United Kingdom</option>
+              <option value="ae">UAE</option>
+              <option value="sg">Singapore</option>
+              <option value="au">Australia</option>
+            </select>
+            <button id="hc-run" class="btn btn-primary hc-run" type="button" data-track="health-check-run">Check my rating</button>
+          </div>
+          <p class="hc-hint">Live data from Google Play / the App Store · free · nothing is stored.</p>
+          <div id="hc-status" class="hc-status" hidden></div>
+        </div>
+        <div id="hc-result" class="hc-result" hidden></div>
+      </div>
+    </section>
+
+    <section class="engagement-note-section" aria-labelledby="hc-next-heading">
+      <div class="container">
+        <div class="engagement-note">
+          <p class="work-category">After the read</p>
+          <h3 id="hc-next-heading" class="engagement-note-heading">The numbers are free.<br>Moving them is the work.</h3>
+          <p>RIENVOR recovers app-store ratings across the 4.0 line and keeps them there — founder-led, on your real users, within platform rules. If the read above looks familiar, a private conversation is the right next step.</p>
+          <p class="trust-contact" style="margin-top:1rem"><a href="/contact.html?src=health-check" class="btn btn-primary" data-track="health-check-to-contact">Start a private conversation</a></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand-col">
+            <a href="/" class="footer-wordmark" aria-label="RIENVOR — Home">RIENVOR</a>
+            <p class="footer-descriptor">Founder-led specialist in the app-store rating layer.<br>Selective engagements. Discreet by design.</p>
+            <a href="mailto:hello@rienvor.com" class="footer-email-link" data-track="email-contact">hello@rienvor.com</a>
+          </div>
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <ul class="footer-links">
+              <li><a href="/about.html">About</a></li>
+              <li><a href="/services.html">Services</a></li>
+              <li><a href="/work.html">Work</a></li>
+              <li><a href="/blog.html">Insights</a></li>
+              <li><a href="/contact.html">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; <span id="current-year">2026</span> RIENVOR. ALL RIGHTS RESERVED.</p>
+          <nav class="footer-legal-links" aria-label="Legal">
+            <a href="/privacy.html">Privacy</a>
+            <a href="/terms.html">Terms</a>
+          </nav>
+          <p class="footer-founder">FOUNDED BY SAMEER NEHRA</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/919350011242"
+     class="whatsapp-cta"
+     target="_blank"
+     rel="noopener noreferrer"
+     aria-label="Message RIENVOR on WhatsApp"
+     aria-expanded="false"
+     data-track="whatsapp-contact">Message us</a>
+
+  <script src="js/main.js" defer></script>
+  <script>
+  (function () {
+    var API = (['127.0.0.1', 'localhost', ''].indexOf(location.hostname) !== -1)
+      ? 'http://127.0.0.1:8080' : 'https://rienvor-healthcheck.fly.dev';
+    var linkEl = document.getElementById('hc-link');
+    var cEl = document.getElementById('hc-country');
+    var runEl = document.getElementById('hc-run');
+    var statusEl = document.getElementById('hc-status');
+    var resultEl = document.getElementById('hc-result');
+    var last = null;
+    // Funnel + dataset via the GTM dataLayer already on the site (no backend, no cost):
+    // health_check_run -> health_check_result (with app/category/rating/band/rank) -> health_check_cta.
+    function dl(o) { (window.dataLayer = window.dataLayer || []).push(o); }
+
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+      });
+    }
+    function setStatus(html, err) {
+      statusEl.hidden = false; statusEl.className = 'hc-status' + (err ? ' err' : '');
+      statusEl.innerHTML = html;
+    }
+    function num1(x) { return (Math.round(x * 10) / 10).toString(); }
+
+    function gauge(pct, ok) {
+      var k = ok ? ' ok' : '';
+      return '<div class="hc-gauge"><div class="hc-track">' +
+        '<div class="hc-fill' + k + '" style="width:' + pct + '%"></div>' +
+        '<div class="hc-line"></div><div class="hc-marker' + k + '" style="left:' + pct + '%"></div></div>' +
+        '<div class="hc-gtags"><span class="hc-cur' + k + '" style="left:' + pct + '%">' + '— now</span>' +
+        '<span class="hc-thr">4.0 line</span></div>' +
+        '<div class="hc-scale"><span>3.5</span><span>Target band 4.0–4.3</span><span>4.3</span></div></div>';
+    }
+    function meta(inst, revs) {
+      var b = [];
+      if (inst) b.push(esc(inst) + ' installs');
+      if (revs) b.push(esc(revs) + ' ratings');
+      return b.join(' · ');
+    }
+
+    function render(d) {
+      var problem = (d.band === 'below' || d.band === 'at');
+      var ok = (d.band === 'healthy');
+      var hk = problem ? ' problem' : (ok ? ' ok' : '');
+      var installsStat = d.installs_short
+        ? '<div class="hc-stat"><div class="num">' + esc(d.installs_short) + '</div><div class="lbl">Installs</div></div>' : '';
+
+      var revBlock = '';
+      if (d.reviews && d.reviews.length) {
+        var cards = d.reviews.map(function (rv) {
+          var n = Math.max(1, rv.rating || 1);
+          return '<div class="hc-rev"><div class="hc-rev-top"><span class="hc-rev-stars">' +
+            '★'.repeat(n) + '</span><span class="hc-rev-date">' + esc(rv.date || '') + '</span></div>' +
+            '<div class="hc-rev-text">' + esc(rv.text || '') + '</div></div>';
+        }).join('');
+        revBlock = '<div class="hc-sec"><p class="hc-sec-label problem">What your unhappy users are saying — right now</p>' +
+          '<p class="hc-sec-note">Pulled live from ' + esc(d.store) + ', newest first. These are the voices setting your public rating — most happy users never post, which is exactly why a steady 1-star flow can hold an average down even as the product improves.</p>' +
+          '<div class="hc-revs">' + cards + '</div></div>';
+      }
+
+      // LEAD with relative position when a trustworthy peer set exists (a public ranking is their
+      // reality — hard to argue with — where "0.2 below 4.0" is our theory). Else absolute fallback.
+      var middle;
+      if (d.category && d.category.competitors && d.category.competitors.length) {
+        var c = d.category;
+        var rows = c.competitors.map(function (co) {
+          return '<div class="hc-comp"><div class="hc-comp-main"><span class="hc-comp-name">' + esc(co.name) + '</span>' +
+            '<span class="hc-comp-meta">' + meta(co.installs_short, co.review_base) + '</span></div>' +
+            '<span class="hc-comp-rate">' + esc(co.rating) + '★</span></div>';
+        }).join('');
+        rows += '<div class="hc-comp you"><div class="hc-comp-main"><span class="hc-comp-name">' + esc(d.app_name) +
+          '<span class="hc-tag">you</span></span><span class="hc-comp-meta">' + meta(d.installs_short, d.review_count_str) +
+          '</span></div><span class="hc-comp-rate">' + esc(d.rating_str) + '★</span></div>';
+        middle =
+          '<div class="hc-cmp-hero"><div class="hc-rank"><b>' + esc(c.n_above) + '</b> of the ' + esc(c.n_considered) +
+            ' comparable apps in your category are rated higher than you.</div>' +
+          '<div class="hc-rank-sub">On the same store, a higher-rated listing turns more of the same browsers into installs — the rating is a competitive asset, not just a number.</div></div>' +
+          '<div class="hc-stats hc-support">' +
+            '<div class="hc-stat"><div class="num">' + esc(d.rating_str) + '<span class="star">★</span></div><div class="lbl">Your rating</div></div>' +
+            '<div class="hc-stat"><div class="num">' + esc(c.category_median) + '<span class="star">★</span></div><div class="lbl">Category median</div></div>' +
+          '</div>' +
+          '<p class="hc-support-cap">' + esc(d.headline) + ' — the threshold where install conversion measurably improves.</p>' +
+          '<div class="hc-sec"><p class="hc-sec-label problem">The apps ahead of you — at your scale</p>' +
+            '<div class="hc-comps">' + rows + '</div></div>' +
+          revBlock;
+      } else {
+        middle =
+          '<div class="hc-stats">' +
+            '<div class="hc-stat"><div class="num">' + esc(d.rating_str) + '<span class="star">★</span></div><div class="lbl">Current rating</div></div>' +
+            '<div class="hc-stat"><div class="num">' + esc(d.review_count_str) + '</div><div class="lbl">Ratings</div></div>' +
+            installsStat + '</div>' +
+          gauge(d.marker_pct, !problem) +
+          '<div class="hc-headline' + hk + '"><div class="big">' + esc(d.headline) + '</div><div class="small">' + esc(d.headline_sub) + '</div></div>' +
+          revBlock;
+      }
+
+      resultEl.innerHTML =
+        '<div class="hc-card"><div class="hc-card-head"><h2>' + esc(d.app_name) + '</h2>' +
+        '<p class="hc-card-sub">' + esc(d.store) + ' · ' + esc(d.market_label) + (d.developer ? ' · ' + esc(d.developer) : '') + '</p></div>' +
+        middle +
+        '<div class="hc-card-cta"><p>The numbers above are live and free to read. <span class="accent">What it takes to move them — and hold them — is the conversation.</span></p>' +
+        '<p class="act"><a href="/contact.html?src=health-check" class="btn btn-primary" data-track="health-check-to-contact">Talk to RIENVOR</a></p></div>' +
+        '<p class="hc-foot-note">Live data · pulled ' + esc(d.pulled) + ' · ' + esc(d.store) + ' · ' + esc(d.market_label) + ' storefront' + (d.cached ? ' · cached' : '') + '</p></div>';
+      resultEl.hidden = false;
+      last = d;
+      var cat = d.category || {};
+      dl({ event: 'health_check_result', hc_app: d.app_name, hc_store: d.store_key, hc_market: d.market_label,
+           hc_category: cat.category_query || '', hc_rating: d.rating, hc_band: d.band,
+           hc_n_above: cat.n_above || 0, hc_n_considered: cat.n_considered || 0,
+           hc_has_competitors: !!(cat.competitors && cat.competitors.length),
+           hc_reviews: (d.reviews || []).length, hc_cached: !!d.cached });
+    }
+
+    function run() {
+      var link = (linkEl.value || '').trim();
+      if (!link) { setStatus('Paste a Google Play or App Store link first.', true); return; }
+      resultEl.hidden = true; runEl.disabled = true;
+      dl({ event: 'health_check_run', hc_country: cEl.value || 'in' });
+      setStatus('<span class="hc-spin"></span>Reading live numbers, reviews and your category…');
+      fetch(API + '/api/check', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ link: link, country: cEl.value || '' })
+      }).then(function (r) { return r.json().then(function (j) { return { code: r.status, body: j }; }); })
+        .then(function (res) {
+          runEl.disabled = false;
+          if (!res.body || !res.body.ok) { setStatus(esc((res.body && res.body.error) || 'Something went wrong — please try again.'), true); dl({ event: 'health_check_error', hc_error: (res.body && res.body.error) || 'failed' }); return; }
+          statusEl.hidden = true; render(res.body);
+        })
+        .catch(function () {
+          runEl.disabled = false;
+          setStatus('Couldn\'t reach the checker just now — please try again in a moment.', true);
+          dl({ event: 'health_check_error', hc_error: 'network' });
+        });
+    }
+    runEl.addEventListener('click', run);
+    linkEl.addEventListener('keydown', function (e) { if (e.key === 'Enter') { e.preventDefault(); run(); } });
+    // The assessment-request click — the conversion that matters — tagged with the result context.
+    resultEl.addEventListener('click', function (e) {
+      var a = e.target.closest('a[data-track="health-check-to-contact"]');
+      if (!a || !last) return;
+      dl({ event: 'health_check_cta', hc_app: last.app_name, hc_band: last.band,
+           hc_category: (last.category && last.category.category_query) || '' });
+    });
+  })();
+  </script>
+</body>
+</html>

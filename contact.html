@@ -83,6 +83,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <a href="/services.html">Services</a>
         <a href="/work.html">Work</a>
         <a href="/blog.html">Insights</a>
+        <a href="/health-check.html">Rating Check</a>
         <a href="/contact.html" class="active" aria-current="page">Contact</a>
       </nav>
     </div>
@@ -149,6 +150,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <input type="hidden" name="_next" value="https://rienvor.com/contact.html?sent=true">
               <input type="hidden" name="_captcha" value="false">
               <input type="hidden" name="_template" value="table">
+              <input type="hidden" name="source" id="contact-source" value="direct">
               <input type="text" name="_honey" class="visually-trap" aria-hidden="true" tabindex="-1" autocomplete="off">
 
               <div class="form-group">
@@ -273,5 +275,15 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   </div>
 
   <script src="js/main.js" defer></script>
+  <script>
+  /* Attribute enquiries to their source (e.g. ?src=health-check) so the funnel is measurable. */
+  (function () {
+    try {
+      var src = new URLSearchParams(location.search).get('src');
+      var el = document.getElementById('contact-source');
+      if (src && el) el.value = src.slice(0, 40);
+    } catch (e) {}
+  })();
+  </script>
 </body>
 </html>
