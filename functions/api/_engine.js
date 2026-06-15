@@ -215,6 +215,10 @@ async function fetchAppstore(trackId, country) {
 }
 
 async function appstoreLowReviews(trackId, country) {
+  // NOTE: Apple's customer-reviews RSS is 403-blocked from datacenter/shared IPs (incl. Cloudflare)
+  // regardless of headers — unlike the lookup endpoint, which works. So from the Worker this
+  // returns [] and the App Store card shows the rating diagnosis without review quotes. Run from a
+  // residential IP (the Python engine) it returns the real reviews. Best-effort: never fails the check.
   let feed;
   try {
     feed = await fetchJson(`https://itunes.apple.com/${country}/rss/customerreviews/page=1/id=${trackId}/sortby=mostrecent/json`, ITUNES_HEADERS);

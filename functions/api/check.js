@@ -36,30 +36,9 @@ export function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
 }
 
-export async function onRequestGet({ request }) {
+export function onRequestGet({ request }) {
   const u = new URL(request.url);
-  if (u.searchParams.get("selftest")) return selftest();
   return handle(u.searchParams.get("link") || "", u.searchParams.get("country") || "", u.searchParams.get("debug"));
-}
-
-async function selftest() {
-  const VERSION = "diag7";
-  const BROWSER = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
-  const out = { ok: true, version: VERSION };
-  try {
-    const pageR = await fetch("https://apps.apple.com/in/app/id310633997", { headers: { "User-Agent": BROWSER, "Accept-Language": "en-US,en" } });
-    out.pageStatus = pageR.status;
-    const html = await pageR.text();
-    out.htmlLen = html.length;
-    // dump context around likely token markers so we can see the real format
-    const around = (re) => { const m = html.match(re); return m ? html.slice(Math.max(0, m.index - 20), m.index + 90) : null; };
-    out.token_ctx = around(/token/i);
-    out.bearer_ctx = around(/bearer/i);
-    out.mediaapi_ctx = around(/MEDIA[-_]?API/i);
-    out.eyJ_ctx = around(/eyJ/);
-    out.webexp_ctx = around(/web-experience-app\/config\/environment/);
-  } catch (e) { out.err = String((e && e.message) || e); }
-  return json(200, out);
 }
 
 export async function onRequestPost({ request }) {
