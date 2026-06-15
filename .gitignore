@@ -1,0 +1,3 @@
+# Local Cloudflare Pages / Wrangler dev state — not part of the deploy
+.wrangler/
+node_modules/

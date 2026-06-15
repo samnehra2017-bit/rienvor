@@ -268,8 +268,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
   <script src="js/main.js" defer></script>
   <script>
   (function () {
-    var API = (['127.0.0.1', 'localhost', ''].indexOf(location.hostname) !== -1)
-      ? 'http://127.0.0.1:8080' : 'https://rienvor-healthcheck.fly.dev';
+    // Same-origin Cloudflare Pages Function (functions/api/check.js). No separate host,
+    // no CORS — the API ships and deploys with this very page.
+    var API = '';
     var linkEl = document.getElementById('hc-link');
     var cEl = document.getElementById('hc-country');
     var runEl = document.getElementById('hc-run');
