@@ -38,44 +38,41 @@ export function onRequestOptions() {
 
 export function onRequestGet({ request }) {
   const u = new URL(request.url);
-  return handle(u.searchParams.get("link") || "", u.searchParams.get("country") || "");
+  return handle(u.searchParams.get("link") || "", u.searchParams.get("country") || "", u.searchParams.get("debug"));
 }
 
 export async function onRequestPost({ request }) {
+  const u = new URL(request.url);
   let body = {};
   try { body = await request.json(); } catch (e) { /* empty/invalid -> handled below */ }
-  return handle((body && body.link) || "", (body && body.country) || "");
+  return handle((body && body.link) || "", (body && body.country) || "", u.searchParams.get("debug"));
 }
 
-async function handle(link, country) {
+async function handle(link, country, debug) {
   link = (link || "").trim();
   country = (country || "").trim();
   if (!link) return json(400, { ok: false, error: "Paste a Play Store or App Store link." });
 
-  // Canonical cache key (also validates the input early, before any network call).
-  let key;
+  // EVERYTHING after this point is inside one try/catch — including the cache lookup — so no
+  // exception can escape to a bare Cloudflare 502; a friendly JSON error always comes back.
+  let key = "";
   try {
-    const p = parseInput(link, country || undefined);
+    const p = parseInput(link, country || undefined);   // throws InputError on bad input
     key = `${p.storeKey}:${p.appId}:${p.cc}`;
-  } catch (e) {
-    return json(400, { ok: false, error: e instanceof InputError ? e.message : "Unrecognised link." });
-  }
 
-  const cache = caches.default;
-  const cacheReq = new Request(`https://hc.rienvor.com/cache/${encodeURIComponent(key)}`);
-  const hit = await cache.match(cacheReq);
-  if (hit) {
-    const data = await hit.json();
-    data.cached = true;
-    return json(200, data);
-  }
+    const cache = caches.default;
+    const cacheReq = new Request(`https://hc.rienvor.com/cache/${encodeURIComponent(key)}`);
+    const hit = await cache.match(cacheReq);
+    if (hit) {
+      const data = await hit.json();
+      data.cached = true;
+      return json(200, data);
+    }
 
-  try {
     const { result } = await healthCheck(link, country || undefined, { withCategory: true });
     const payload = publicPayload(result);
 
-    // Usage dataset — one line per fresh check, visible in the Pages Functions logs
-    // (`wrangler pages deployment tail`). No PII: the app id is public. Complements the GTM funnel.
+    // Usage dataset — one line per fresh check, visible in the Pages Functions logs. No PII.
     const cat = payload.category || {};
     console.log(`[check] ${key} rating=${payload.rating} band=${payload.band} ` +
       `peers=${cat.n_above ?? ""}/${cat.n_considered ?? ""} reviews=${(payload.reviews || []).length}`);
@@ -86,10 +83,12 @@ async function handle(link, country) {
     return json(200, payload);
   } catch (e) {
     if (e instanceof InputError) return json(400, { ok: false, error: e.message });
-    return json(502, {
+    const out = {
       ok: false,
       error: "Couldn't reach the store just now — this can happen with Google Play; please try again in a moment.",
       detail: e && e.name,
-    });
+    };
+    if (debug) out.debug = String((e && (e.stack || e.message)) || e);   // ?debug=1 surfaces the real error
+    return json(502, out);
   }
 }

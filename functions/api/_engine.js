@@ -218,7 +218,9 @@ async function appstoreLowReviews(trackId, country) {
   } catch (e) { return []; }
   let entries = (feed.feed && feed.feed.entry) || [];
   if (!Array.isArray(entries)) entries = entries ? [entries] : [];
-  if (entries.length && !("im:rating" in entries[0])) entries = entries.slice(1);  // drop app node
+  const isObj = (x) => x !== null && typeof x === "object";
+  if (entries.length && isObj(entries[0]) && !("im:rating" in entries[0])) entries = entries.slice(1);  // drop app node
+  entries = entries.filter(isObj);
   const parsed = [];
   for (const e of entries) {
     let star = 0;
