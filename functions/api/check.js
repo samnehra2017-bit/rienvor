@@ -46,28 +46,28 @@ export async function onRequestGet({ request }) {
 }
 
 async function selftest(which) {
-  const VERSION = "diag3";
-  const urls = {
-    itunes: "https://itunes.apple.com/lookup?id=310633997&country=in",
-    "apple-rss": "https://itunes.apple.com/in/rss/customerreviews/page=1/id=310633997/sortby=mostrecent/json",
-    play: "https://play.google.com/store/apps/details?id=com.zerodha.coin&hl=en&gl=in",
-  };
-  const url = urls[which];
-  if (!url) return json(400, { ok: false, version: VERSION, error: "unknown selftest" });
-  const out = { ok: true, version: VERSION, which, url };
-  try {
-    const r = await fetch(url, { headers: { "User-Agent": "Mozilla/5.0 (RIENVOR-HealthCheck)", "Accept-Language": "en" } });
-    out.status = r.status;
-    out.ctype = r.headers.get("content-type");
-    const text = await r.text();
-    out.len = text.length;
-    out.sample = text.slice(0, 160);
-  } catch (e) {
-    out.ok = false;
-    out.errName = e && e.name;
-    out.errMsg = String((e && e.message) || e);
+  const VERSION = "diag4";
+  const BROWSER = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36";
+  const probes = [
+    { name: "itunes-lookup-plain", url: "https://itunes.apple.com/lookup?id=310633997&country=in", headers: {} },
+    { name: "itunes-lookup-browser", url: "https://itunes.apple.com/lookup?id=310633997&country=in", headers: { "User-Agent": BROWSER, "Accept": "application/json" } },
+    { name: "itunes-search", url: "https://itunes.apple.com/search?term=whatsapp&country=in&entity=software&limit=1", headers: { "User-Agent": BROWSER } },
+    { name: "appsapple-page", url: "https://apps.apple.com/in/app/id310633997", headers: { "User-Agent": BROWSER, "Accept-Language": "en-US,en" } },
+    { name: "amp-api", url: "https://amp-api.apps.apple.com/v1/catalog/in/apps/310633997", headers: { "User-Agent": BROWSER } },
+  ];
+  const results = [];
+  for (const p of probes) {
+    const r0 = { name: p.name };
+    try {
+      const r = await fetch(p.url, { headers: p.headers });
+      r0.status = r.status;
+      const text = await r.text();
+      r0.len = text.length;
+      r0.sample = text.slice(0, 100).replace(/\s+/g, " ");
+    } catch (e) { r0.err = String((e && e.message) || e); }
+    results.push(r0);
   }
-  return json(200, out);
+  return json(200, { ok: true, version: VERSION, which, results });
 }
 
 export async function onRequestPost({ request }) {
