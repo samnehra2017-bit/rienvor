@@ -36,9 +36,30 @@ export function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
 }
 
-export function onRequestGet({ request }) {
+export async function onRequestGet({ request }) {
   const u = new URL(request.url);
+  if (u.searchParams.get("selftest")) return selftest();
   return handle(u.searchParams.get("link") || "", u.searchParams.get("country") || "", u.searchParams.get("debug"));
+}
+
+async function selftest() {
+  const VERSION = "diag-as1";
+  const out = { ok: true, version: VERSION };
+  // 1) raw iTunes lookup from the Worker (no browser UA — the config that worked before)
+  try {
+    const r = await fetch("https://itunes.apple.com/lookup?id=310633997&country=in");
+    out.itunesStatus = r.status;
+    const t = await r.text();
+    out.itunesLen = t.length;
+    out.itunesSample = t.slice(0, 80).replace(/\s+/g, " ");
+  } catch (e) { out.itunesErr = `${e && e.name}: ${(e && e.message) || e}`; }
+  // 2) the real engine path for an App Store id, to capture exactly what throws
+  try {
+    const { healthCheck } = await import("./_engine.js");
+    const { result } = await healthCheck("310633997", "in", { withCategory: true });
+    out.engine = { app: result.app_name, rating: result.rating_str, reviews: (result.reviews || []).length };
+  } catch (e) { out.engineErr = `${e && e.name}: ${(e && e.message) || e}`; }
+  return json(200, out);
 }
 
 export async function onRequestPost({ request }) {
