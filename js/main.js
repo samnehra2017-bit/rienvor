@@ -174,14 +174,6 @@
   // =========================================
 
   var glossary = {
-    'search-visibility': {
-      title: 'Search visibility',
-      body: 'Organic authority built to compound rather than spike — technical foundations, content architecture, and rankings that hold as the market shifts. Offered in support of the rating work, not as a standalone track.'
-    },
-    'user-acquisition': {
-      title: 'User acquisition',
-      body: 'App campaigns across CPI, CPR, and CPA models, structured around downstream economics rather than install volume. Offered in support of the rating work, not as a standalone track.'
-    },
     'social-presence': {
       title: 'Ratings recovery & management',
       body: 'Recovering, stabilising, and maintaining the Play Store rating — the rating layer treated as the unit of work, separate from the product itself. Built on mandates across 70+ apps: recoveries from 3.6–3.8 baselines into the 4.2–4.5 range, held month over month on review bases past 100,000. Structural work, not crisis PR.'
