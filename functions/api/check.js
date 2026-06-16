@@ -36,30 +36,9 @@ export function onRequestOptions() {
   return new Response(null, { status: 204, headers: corsHeaders() });
 }
 
-export async function onRequestGet({ request }) {
+export function onRequestGet({ request }) {
   const u = new URL(request.url);
-  if (u.searchParams.get("selftest")) return selftest();
   return handle(u.searchParams.get("link") || "", u.searchParams.get("country") || "", u.searchParams.get("debug"));
-}
-
-async function selftest() {
-  const VERSION = "diag-as1";
-  const out = { ok: true, version: VERSION };
-  // 1) raw iTunes lookup from the Worker (no browser UA — the config that worked before)
-  try {
-    const r = await fetch("https://itunes.apple.com/lookup?id=310633997&country=in");
-    out.itunesStatus = r.status;
-    const t = await r.text();
-    out.itunesLen = t.length;
-    out.itunesSample = t.slice(0, 80).replace(/\s+/g, " ");
-  } catch (e) { out.itunesErr = `${e && e.name}: ${(e && e.message) || e}`; }
-  // 2) the real engine path for an App Store id, to capture exactly what throws
-  try {
-    const { healthCheck } = await import("./_engine.js");
-    const { result } = await healthCheck("310633997", "in", { withCategory: true });
-    out.engine = { app: result.app_name, rating: result.rating_str, reviews: (result.reviews || []).length };
-  } catch (e) { out.engineErr = `${e && e.name}: ${(e && e.message) || e}`; }
-  return json(200, out);
 }
 
 export async function onRequestPost({ request }) {
@@ -104,12 +83,19 @@ async function handle(link, country, debug) {
     return json(200, payload);
   } catch (e) {
     if (e instanceof InputError) return json(400, { ok: false, error: e.message });
+    // Apple 403s iTunes lookups from datacenter/shared IPs (incl. Cloudflare), so App Store checks
+    // fail server-side while Google Play works. Give an honest, store-aware message pointing to Play.
+    const isAppStore = key.startsWith("appstore:");
     const out = {
       ok: false,
-      error: "Couldn't reach the store just now — this can happen with Google Play; please try again in a moment.",
+      error: isAppStore
+        ? "App Store checks aren't available from our server right now — Apple limits lookups from shared hosts. Google Play links work fully; try one of those."
+        : "Couldn't reach Google Play just now — please try again in a moment.",
       detail: e && e.name,
     };
     if (debug) out.debug = String((e && (e.stack || e.message)) || e);   // ?debug=1 surfaces the real error
-    return json(502, out);
+    // Return 200, NOT a 5xx: Cloudflare swaps a Function's 5xx for its own bare error page, which
+    // breaks the JSON contract. The front-end branches on the `ok` field, not the HTTP status.
+    return json(200, out);
   }
 }
