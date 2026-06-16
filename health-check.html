@@ -11,7 +11,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Free Rating Health Check | RIENVOR – App-Store Ratings Recovery &amp; Management</title>
-  <meta name="description" content="A free, instant read on where your app's rating actually stands — your live Play Store / App Store numbers, the gap to the 4.0 install-conversion line, your real recent reviews, and where you sit against comparable apps. No sign-up.">
+  <meta name="description" content="A free, instant read on where your app's rating actually stands — your live Play Store numbers, the gap to the 4.0 install-conversion line, your real recent reviews, and where you sit against comparable apps. No sign-up.">
   <meta name="robots" content="index, follow">
   <meta name="theme-color" content="#0a0a0b">
   <link rel="canonical" href="https://rienvor.com/health-check.html">
@@ -184,7 +184,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
       <div class="container">
         <p class="hero-eyebrow">Free · Instant · No sign-up</p>
         <h1 id="hc-hero-heading">Where does your rating<br><em>actually</em> stand?</h1>
-        <p class="page-subhead">Paste your store link for a live read: your numbers, the gap to the 4.0 install-conversion line, your real recent reviews, and where you sit against comparable apps.</p>
+        <p class="page-subhead">Paste your Google Play link for a live read: your numbers, the gap to the 4.0 install-conversion line, your real recent reviews, and where you sit against comparable apps.</p>
       </div>
     </section>
 
@@ -194,8 +194,8 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <div class="hc-form">
           <div class="hc-input-row">
             <input id="hc-link" class="hc-link" type="text" inputmode="url" autocomplete="off"
-                   placeholder="Paste your Google Play or App Store link"
-                   aria-label="Google Play or App Store link">
+                   placeholder="Paste your Google Play link"
+                   aria-label="Google Play link">
             <select id="hc-country" class="hc-country" aria-label="Storefront">
               <option value="">India</option>
               <option value="us">United States</option>
@@ -206,7 +206,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
             </select>
             <button id="hc-run" class="btn btn-primary hc-run" type="button" data-track="health-check-run">Check my rating</button>
           </div>
-          <p class="hc-hint">Live data from Google Play / the App Store · free · nothing is stored.</p>
+          <p class="hc-hint">Live data from Google Play · free · nothing is stored.</p>
           <div id="hc-status" class="hc-status" hidden></div>
         </div>
         <div id="hc-result" class="hc-result" hidden></div>
@@ -383,7 +383,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
 
     function run() {
       var link = (linkEl.value || '').trim();
-      if (!link) { setStatus('Paste a Google Play or App Store link first.', true); return; }
+      if (!link) { setStatus('Paste a Google Play link first.', true); return; }
       resultEl.hidden = true; runEl.disabled = true;
       dl({ event: 'health_check_run', hc_country: cEl.value || 'in' });
       setStatus('<span class="hc-spin"></span>Reading live numbers, reviews and your category…');
