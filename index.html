@@ -41,21 +41,63 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "Organization",
-    "name": "RIENVOR",
-    "url": "https://rienvor.com",
-    "logo": "https://rienvor.com/images/apple-touch-icon.png",
-    "email": "hello@rienvor.com",
-    "description": "Founder-led specialist in the app-store rating layer: recovering, stabilising, and managing Play Store ratings for app publishers and funded digital businesses.",
-    "founder": {
-      "@type": "Person",
-      "name": "Sameer Nehra"
-    },
-    "contactPoint": {
-      "@type": "ContactPoint",
-      "contactType": "customer service",
-      "email": "hello@rienvor.com"
-    }
+    "@graph": [
+      {
+        "@type": "Organization",
+        "@id": "https://rienvor.com/#organization",
+        "name": "RIENVOR",
+        "url": "https://rienvor.com",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://rienvor.com/images/apple-touch-icon.png"
+        },
+        "image": "https://rienvor.com/images/apple-touch-icon.png",
+        "email": "hello@rienvor.com",
+        "description": "Founder-led specialist in the app-store rating layer: recovering, stabilising, and managing Play Store and App Store ratings for app publishers and funded digital businesses.",
+        "knowsAbout": [
+          "App-store rating recovery",
+          "Google Play Store ratings",
+          "Apple App Store ratings",
+          "App rating management",
+          "Install-conversion economics",
+          "App review sentiment"
+        ],
+        "areaServed": "Worldwide",
+        "founder": { "@id": "https://rienvor.com/#sameer" },
+        "sameAs": [
+          "https://www.linkedin.com/in/sameer-nehra-716379283/"
+        ],
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer service",
+          "email": "hello@rienvor.com"
+        }
+      },
+      {
+        "@type": "Person",
+        "@id": "https://rienvor.com/#sameer",
+        "name": "Sameer Nehra",
+        "url": "https://rienvor.com/about",
+        "jobTitle": "Founder",
+        "worksFor": { "@id": "https://rienvor.com/#organization" },
+        "knowsAbout": [
+          "App-store rating recovery",
+          "Google Play Store ratings",
+          "App rating management"
+        ],
+        "sameAs": [
+          "https://www.linkedin.com/in/sameer-nehra-716379283/"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://rienvor.com/#website",
+        "url": "https://rienvor.com",
+        "name": "RIENVOR",
+        "publisher": { "@id": "https://rienvor.com/#organization" },
+        "inLanguage": "en"
+      }
+    ]
   }
   </script>
 </head>
@@ -584,6 +626,7 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
               <li><a href="/services.html">Services</a></li>
               <li><a href="/work.html">Work</a></li>
               <li><a href="/blog.html">Insights</a></li>
+              <li><a href="/faq.html">FAQ</a></li>
               <li><a href="/contact.html">Contact</a></li>
             </ul>
           </nav>

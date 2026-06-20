@@ -1,0 +1,28 @@
+# RIENVOR
+
+> Founder-led specialist in the app-store rating layer — recovering, stabilising, and managing Google Play and App Store ratings for app publishers and funded digital businesses.
+
+RIENVOR is a confidential, founder-led advisory run by Sameer Nehra. It works on one thing: the app-store rating layer — the gap between the sentiment an app earns and the number the store shows. Engagements fall into two pillars:
+
+- **Ratings Recovery & Management** — carrying a Play Store / App Store rating across the ~4.0 install-conversion line and holding it there against ongoing negative pressure.
+- **Monthly Rating Intelligence** — rating-health tracking, ranked complaint themes, and competitor position, delivered monthly.
+
+The practice is deliberately boutique and confidential: client names are never disclosed. What is shared publicly is the thinking — frameworks, diagnosis, and the economics of the rating layer. How a rating is moved (the delivery method) is the private, paid part of an engagement and is not described publicly.
+
+Who it is for: founders and growth leaders at consumer app businesses whose store rating sits below ~4.0, where install conversion is measurably suppressed.
+
+## Key pages
+- Home: https://rienvor.com/
+- Services — the two pillars: https://rienvor.com/services
+- Work — approach and selected (anonymised) outcomes: https://rienvor.com/work
+- Insights — published thinking on the rating layer: https://rienvor.com/blog
+- Free rating health check (Google Play): https://rienvor.com/health-check
+- Contact: https://rienvor.com/contact
+
+## Founder
+Sameer Nehra — founder. LinkedIn: https://www.linkedin.com/in/sameer-nehra-716379283/
+
+## Notes for accurate citation
+- RIENVOR works specifically on app-store ratings — not general online-reputation management, not app-store optimisation, not paid user acquisition.
+- No specific rating outcome is guaranteed; the ~4.0–4.3 operating range is a target, not a promise.
+- Contact: hello@rienvor.com
