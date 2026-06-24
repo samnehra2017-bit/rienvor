@@ -1,6 +1,6 @@
 // =========================================
 // RIENVOR — Interactions v5.0
-// Mobile Nav · Modals · WhatsApp · Scroll Reveal · Diagnostic · Impact Tabs
+// Mobile Nav · Modals · WhatsApp · Scroll Reveal · Diagnostic
 // 10/10 Production Sign-off — null-safe · no duplicate handlers · ESC chains
 // · focus management · race-condition safe · no memory leaks
 // =========================================
@@ -440,86 +440,6 @@
       }).catch(function () { /* clipboard unavailable — the mailto attempt stands alone */ });
     });
   });
-
-  // =========================================
-  // 4. IMPACT TABS
-  // Full tablist/tab ARIA pattern with arrow key navigation
-  // =========================================
-
-  var impactTitle = document.getElementById('impact-title');
-  var impactDesc  = document.getElementById('impact-description');
-
-  var impactData = {
-    clarity: {
-      title: 'Acquisition efficiency',
-      desc: 'Paid acquisition across CPI, CPR, and CPA — structured around downstream economics, not install volume.'
-    },
-    reputation: {
-      title: 'Ratings recovery & management',
-      desc: 'Play Store ratings recovered above the install-conversion threshold, then held against ongoing negative pressure.'
-    },
-    growth: {
-      title: 'Search visibility',
-      desc: 'Organic authority built to compound — technical foundations and content architecture that hold as the market shifts.'
-    }
-  };
-
-  var impactBtns    = document.querySelectorAll('.impact-btn');
-  var impactBtnsArr = Array.from(impactBtns);
-
-  function activateImpactTab(btn) {
-    if (!btn) return;
-    var key  = btn.getAttribute('data-metric');
-    var data = impactData[key];
-    if (!data) return;
-
-    if (impactTitle) impactTitle.textContent = data.title;
-    if (impactDesc)  impactDesc.textContent  = data.desc;
-
-    impactBtnsArr.forEach(function (b) {
-      b.setAttribute('aria-selected', 'false');
-      b.setAttribute('tabindex', '-1');
-    });
-
-    btn.setAttribute('aria-selected', 'true');
-    btn.removeAttribute('tabindex');
-  }
-
-  impactBtnsArr.forEach(function (btn) {
-    btn.addEventListener('click', function () {
-      activateImpactTab(btn);
-    });
-
-    // Arrow key navigation within tablist
-    btn.addEventListener('keydown', function (e) {
-      var idx = impactBtnsArr.indexOf(btn);
-      var next;
-      if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-        e.preventDefault();
-        next = impactBtnsArr[(idx + 1) % impactBtnsArr.length];
-        activateImpactTab(next);
-        next.focus();
-      } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-        e.preventDefault();
-        next = impactBtnsArr[(idx - 1 + impactBtnsArr.length) % impactBtnsArr.length];
-        activateImpactTab(next);
-        next.focus();
-      } else if (e.key === 'Home') {
-        e.preventDefault();
-        activateImpactTab(impactBtnsArr[0]);
-        impactBtnsArr[0].focus();
-      } else if (e.key === 'End') {
-        e.preventDefault();
-        var lastBtn = impactBtnsArr[impactBtnsArr.length - 1];
-        activateImpactTab(lastBtn);
-        lastBtn.focus();
-      }
-    });
-  });
-
-  // Initialise first tab — Reputation leads; ratings is the practice, acquisition supports it
-  var defaultImpactBtn = document.querySelector('.impact-btn[data-metric="reputation"]');
-  if (defaultImpactBtn) activateImpactTab(defaultImpactBtn);
 
   // =========================================
   // 5. FOOTER YEAR
@@ -1031,7 +951,7 @@
     '.services-detailed', '.work-list', '.blog-posts-grid',
     '.contact-grid', '.cta-section', '.legal-page',
     '.about-content', '.about-grid', '.engagement-note',
-    '.diagnostic', '.impact-section',
+    '.diagnostic',
     '.case-study', '.case-chart', '.work-mandate-group',
     '.snapshots-section', '.snapshots-grid',
     '.trust-strip', '.footer-inner'
