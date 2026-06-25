@@ -1096,7 +1096,7 @@
         entries.forEach(function (en) {
           if (en.isIntersecting) { trigger(); obs.unobserve(en.target); }
         });
-      }, { threshold: 0.4 });
+      }, { threshold: 0, rootMargin: '0px 0px -40% 0px' });
       obs.observe(rl);
     } else {
       trigger();
