@@ -4233,13 +4233,15 @@ html[data-theme="light"] body::after {
 /* Buttons keep the brand's BRIGHT gold fill (the deep --accent is for text
    only — used solid it reads as olive). Matches the dark-mode button. */
 html[data-theme="light"] .btn-primary {
-  background: #c9a84c;
-  border-color: #c9a84c;
+  background: #c4a23d;
+  border-color: #a3801f;
   color: #1a1a1a;
+  box-shadow: 0 1px 2px rgba(120, 92, 20, 0.30), 0 4px 14px rgba(138, 109, 31, 0.16);
 }
 html[data-theme="light"] .btn-primary:hover {
-  background: #d8bb63;
-  border-color: #d8bb63;
+  background: #d2b150;
+  border-color: #b8932f;
+  box-shadow: 0 2px 4px rgba(120, 92, 20, 0.30), 0 8px 20px rgba(138, 109, 31, 0.22);
 }
 
 /* Hero photo is a dark image — keep it a faint light wash on cream,
@@ -4293,6 +4295,20 @@ html[data-theme="light"] .engagement-note {
 .theme-toggle .theme-icon--moon { display: none; }
 html[data-theme="light"] .theme-toggle .theme-icon--sun  { display: none; }
 html[data-theme="light"] .theme-toggle .theme-icon--moon { display: block; }
-@media (max-width: 768px) {
-  .main-nav .theme-toggle { align-self: flex-start; margin: var(--sp-3); }
+/* Toggle lives in the header bar — always visible, including mobile.
+   Logo takes the free space so nav + toggle group on the right. */
+.header-container > .logo { margin-right: auto; }
+
+/* Smooth fade when switching theme. The class is added by the toggle and
+   removed after the transition, so it never affects page load or hovers. */
+html.theme-transition,
+html.theme-transition *,
+html.theme-transition *::before,
+html.theme-transition *::after {
+  transition: background-color 0.35s ease, color 0.35s ease,
+              border-color 0.35s ease, fill 0.35s ease, stroke 0.35s ease,
+              box-shadow 0.35s ease !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.theme-transition, html.theme-transition * { transition: none !important; }
 }
