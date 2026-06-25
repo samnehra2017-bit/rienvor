@@ -525,7 +525,6 @@ main {
   width: 120%;
   height: 130%;
   background: radial-gradient(ellipse at 25% 35%, rgba(201, 168, 76, 0.065), transparent 65%);
-  animation: slowDrift 28s infinite alternate ease-in-out;
   pointer-events: none;
   z-index: 0;
 }
@@ -1256,6 +1255,83 @@ main {
   text-align: center;
 }
 
+/* =========================================
+   RATING LAYER — animated representative proof.
+   Design law: only the rating moves. The curve draws, the number counts
+   up and pauses at the 4.0 install-conversion line. Reduced-motion safe.
+   ========================================= */
+.rating-layer {
+  max-width: 600px;
+  margin: 0 auto var(--sp-6);
+}
+.rl-readout {
+  text-align: center;
+  margin-bottom: var(--sp-2);
+  line-height: 1;
+}
+.rl-value {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.8rem, 8vw, 4rem);
+  font-weight: 600;
+  color: var(--text);
+  font-variant-numeric: tabular-nums;
+}
+.rl-star {
+  color: var(--accent);
+  font-size: 0.5em;
+  margin-left: 0.12em;
+  vertical-align: 0.45em;
+}
+.rl-state {
+  display: block;
+  margin-top: 0.5rem;
+  font-size: var(--text-xs);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.rl-svg {
+  display: block;
+  width: 100%;
+  height: 168px;
+  overflow: visible;
+}
+.rl-grid {
+  stroke: var(--border);
+  stroke-width: 1;
+}
+.rl-curve {
+  fill: none;
+  stroke: var(--accent);
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.rl-cross,
+.rl-end {
+  fill: var(--accent);
+  opacity: 0;
+}
+.rating-layer.is-drawing .rl-cross { opacity: 0.55; transition: opacity 0.4s ease 0.95s; }
+.rating-layer.is-drawing .rl-end   { opacity: 1;    transition: opacity 0.5s ease 1.7s; }
+.rl-marks {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--sp-2);
+  margin-top: 0.4rem;
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+}
+.rl-mark--line { color: var(--accent); opacity: 0.85; }
+.rl-mark--end { text-align: right; }
+@media (max-width: 480px) {
+  .rl-svg { height: 140px; }
+  .rl-marks { font-size: 0.66rem; }
+  .rl-mark--line { display: none; }
+}
+
 .impact-layout {
   display: grid;
   grid-template-columns: auto 1fr;
@@ -1538,7 +1614,6 @@ main {
   height: 90%;
   background: radial-gradient(ellipse, rgba(201, 168, 76, 0.045) 0%, transparent 70%);
   pointer-events: none;
-  animation: resultGlow 10s ease-in-out infinite alternate;
 }
 
 /* Live header row */

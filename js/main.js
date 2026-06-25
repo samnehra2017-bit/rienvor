@@ -1032,4 +1032,75 @@
     sync();
   })();
 
+  // =========================================
+  // 10. RATING LAYER (animated representative proof)
+  // Design law: only the rating moves. The curve draws once, the number
+  // counts up and PAUSES at the 4.0 line (the felt threshold). Plays once
+  // on scroll-in. prefers-reduced-motion -> static final state.
+  // =========================================
+  (function () {
+    var rl = document.querySelector('[data-rating-layer]');
+    if (!rl) return;
+
+    var path    = rl.querySelector('.rl-curve');
+    var valEl   = rl.querySelector('[data-rl-value]');
+    var stateEl = rl.querySelector('[data-rl-state]');
+    var reduce  = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (path && path.getTotalLength) {
+      var len = path.getTotalLength();
+      path.style.strokeDasharray  = len;
+      path.style.strokeDashoffset = reduce ? 0 : len;
+    }
+
+    function run() {
+      if (reduce) {
+        if (valEl)   valEl.textContent = '4.2';
+        if (stateEl) stateEl.textContent = 'held';
+        rl.classList.add('is-drawing', 'crossed');
+        return;
+      }
+      rl.classList.add('is-drawing');
+      if (path) path.style.strokeDashoffset = '0';
+
+      var start = 3.8, mid = 4.0, end = 4.2;
+      var p1 = 950, hold = 320, p2 = 620, t0 = null;
+      function frame(ts) {
+        if (t0 === null) t0 = ts;
+        var e = ts - t0, v;
+        if (e < p1) {
+          v = start + (mid - start) * (e / p1);
+          if (stateEl) stateEl.textContent = 'recovering';
+        } else if (e < p1 + hold) {
+          v = mid;
+          rl.classList.add('crossed');
+          if (stateEl) stateEl.textContent = 'crossing 4.0';
+        } else if (e < p1 + hold + p2) {
+          v = mid + (end - mid) * ((e - p1 - hold) / p2);
+          if (stateEl) stateEl.textContent = 'held';
+        } else {
+          if (valEl)   valEl.textContent = end.toFixed(1);
+          if (stateEl) stateEl.textContent = 'held';
+          return;
+        }
+        if (valEl) valEl.textContent = v.toFixed(1);
+        requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    }
+
+    var done = false;
+    function trigger() { if (done) return; done = true; run(); }
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (en.isIntersecting) { trigger(); obs.unobserve(en.target); }
+        });
+      }, { threshold: 0.4 });
+      obs.observe(rl);
+    } else {
+      trigger();
+    }
+  })();
+
 }());
