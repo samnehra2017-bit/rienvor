@@ -1315,6 +1315,18 @@ main {
 }
 .rating-layer.is-drawing .rl-cross { opacity: 0.55; transition: opacity 0.4s ease 0.95s; }
 .rating-layer.is-drawing .rl-end   { opacity: 1;    transition: opacity 0.5s ease 1.7s; }
+
+/* Live "ping" at the leading edge — the rating is monitored, ongoing.
+   Starts once the curve has drawn; the one perpetual motion we allow. */
+.rl-pulse { fill: var(--accent); opacity: 0; }
+.rating-layer.is-drawing .rl-pulse { animation: rlPing 2.1s ease-out 2s infinite; }
+@keyframes rlPing {
+  0%   { r: 5;  opacity: 0.45; }
+  100% { r: 18; opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .rl-pulse, .case-chart-pulse { animation: none !important; opacity: 0; }
+}
 .rl-marks {
   display: flex;
   justify-content: space-between;
@@ -3512,6 +3524,10 @@ select option {
 .case-chart-dot--accent {
   fill: var(--accent);
 }
+
+/* Live ping at the chart's leading edge — same language as the Rating Layer */
+.case-chart-pulse { fill: var(--accent); opacity: 0; }
+.case-chart.visible .case-chart-pulse { animation: rlPing 2.1s ease-out 1.6s infinite; }
 
 .case-chart-caption {
   display: flex;
