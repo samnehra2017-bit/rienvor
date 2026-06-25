@@ -1,0 +1,10 @@
+# Cloudflare Pages headers.
+# CSS/JS are referenced without version hashes, so long edge/browser caching
+# made deploys appear as "nothing changed" until the cache expired. Force a
+# revalidation on every load (cheap 304s when unchanged) so updates show
+# immediately. Images keep normal caching.
+/css/*
+  Cache-Control: no-cache
+
+/js/*
+  Cache-Control: no-cache
