@@ -1308,24 +1308,30 @@ main {
   stroke-linejoin: round;
   transition: stroke-dashoffset 1.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.rl-cross,
-.rl-end {
-  fill: var(--accent);
-  opacity: 0;
-}
-.rating-layer.is-drawing .rl-cross { opacity: 0.55; transition: opacity 0.4s ease 0.95s; }
-.rating-layer.is-drawing .rl-end   { opacity: 1;    transition: opacity 0.5s ease 1.7s; }
+/* Leading head appears only AFTER the line finishes — never ahead of it. */
+.rl-end { fill: var(--accent); opacity: 0; }
+.rating-layer.is-drawing .rl-end { opacity: 1; transition: opacity 0.4s ease 1.85s; }
 
-/* Live "ping" at the leading edge — the rating is monitored, ongoing.
-   Starts once the curve has drawn; the one perpetual motion we allow. */
-.rl-pulse { fill: var(--accent); opacity: 0; }
-.rating-layer.is-drawing .rl-pulse { animation: rlPing 2.1s ease-out 2s infinite; }
+/* Live wake — small dots stream backward from the head, so the leading edge
+   reads as advancing even though it holds at 4.2. Starts after the draw.
+   The one perpetual motion we allow: the rating is live / monitored. */
+.rl-trail { fill: var(--accent); opacity: 0; }
+.rating-layer.is-drawing .rl-trail    { animation: rlTrail 1.5s linear 1.9s infinite; }
+.rating-layer.is-drawing .rl-trail.t2 { animation-delay: 2.4s; }
+.rating-layer.is-drawing .rl-trail.t3 { animation-delay: 2.9s; }
+@keyframes rlTrail {
+  0%   { transform: translate(0, 0);        opacity: 0; }
+  20%  { opacity: 0.5; }
+  100% { transform: translate(-54px, 7px);  opacity: 0; }
+}
+
+/* rlPing keyframe retained for the Work chart's leading-edge ping */
 @keyframes rlPing {
-  0%   { r: 5;  opacity: 0.45; }
-  100% { r: 18; opacity: 0; }
+  0%   { r: 4.5; opacity: 0.4; }
+  100% { r: 16;  opacity: 0; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .rl-pulse, .case-chart-pulse { animation: none !important; opacity: 0; }
+  .rl-trail, .case-chart-pulse { animation: none !important; opacity: 0; }
 }
 .rl-marks {
   display: flex;
