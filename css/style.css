@@ -4200,15 +4200,16 @@ select option {
 html[data-theme="light"] {
   --bg:               #eceae4;
   --surface:          #ffffff;
-  --surface-raised:   #f7f5ef;
-  --border:           rgba(138, 109, 31, 0.30);
-  --border-subtle:    rgba(26, 22, 12, 0.12);
+  --surface-raised:   #f5f2ea;
+  --border:           #e7d9a6;
+  --border-subtle:    #ded7c7;
   --text:             #1a1a1a;
   --text-muted:       #555049;
   --text-soft:        #8a857c;
   --accent:           #8a6d1f;
   --accent-hover:     #6f5616;
-  --accent-dim:       rgba(138, 109, 31, 0.10);
+  --accent-dim:       #fbf3da;
+  --rust:             #bf5a38;
   --shadow-sm:  0 2px 12px rgba(26, 22, 12, 0.08);
   --shadow-md:  0 8px 32px rgba(26, 22, 12, 0.10);
   --shadow-lg:  0 20px 64px rgba(26, 22, 12, 0.14);
@@ -4246,6 +4247,24 @@ html[data-theme="light"] .btn-primary:hover {
 html[data-theme="light"] .hero-visual-bg img {
   opacity: 0.07;
   filter: grayscale(70%) brightness(1.25) contrast(0.92);
+}
+
+/* Eyebrows in rust — the deliverable's signature warm accent (gold stays
+   for body links/labels). Bump hero eyebrow to full opacity so it reads. */
+html[data-theme="light"] .hero-eyebrow,
+html[data-theme="light"] .cta-eyebrow,
+html[data-theme="light"] .diagnostic-eyebrow,
+html[data-theme="light"] .spd-live-eyebrow,
+html[data-theme="light"] .spd-result-eyebrow,
+html[data-theme="light"] .error-eyebrow {
+  color: var(--rust);
+}
+html[data-theme="light"] .hero-eyebrow { opacity: 0.92; }
+
+/* Warm highlight callout, like the deliverable's "fix" box */
+html[data-theme="light"] .engagement-note {
+  border: 1px solid var(--border);
+  border-left: 2px solid var(--rust);
 }
 
 /* =========================================
