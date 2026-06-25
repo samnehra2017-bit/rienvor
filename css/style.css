@@ -1255,6 +1255,28 @@ main {
   text-align: center;
 }
 
+/* Founder note — judgment beside the proof; the human signal */
+.founder-note {
+  max-width: 600px;
+  margin: var(--sp-5) auto;
+  font-family: "Cormorant Garamond", serif;
+  font-style: italic;
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--text-muted);
+  text-align: center;
+}
+.founder-note-by {
+  display: block;
+  margin-top: var(--sp-2);
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
 /* =========================================
    RATING LAYER — animated representative proof.
    Design law: only the rating moves. The curve draws, the number counts
@@ -1325,13 +1347,8 @@ main {
   100% { transform: translate(-54px, 7px);  opacity: 0; }
 }
 
-/* rlPing keyframe retained for the Work chart's leading-edge ping */
-@keyframes rlPing {
-  0%   { r: 4.5; opacity: 0.4; }
-  100% { r: 16;  opacity: 0; }
-}
 @media (prefers-reduced-motion: reduce) {
-  .rl-trail, .case-chart-pulse { animation: none !important; opacity: 0; }
+  .rl-trail, .case-trail { animation: none !important; opacity: 0; }
 }
 .rl-marks {
   display: flex;
@@ -3531,9 +3548,11 @@ select option {
   fill: var(--accent);
 }
 
-/* Live ping at the chart's leading edge — same language as the Rating Layer */
-.case-chart-pulse { fill: var(--accent); opacity: 0; }
-.case-chart.visible .case-chart-pulse { animation: rlPing 2.1s ease-out 1.6s infinite; }
+/* Live wake at the chart's leading edge — same language as the Rating Layer */
+.case-trail { fill: var(--accent); opacity: 0; }
+.case-chart.visible .case-trail    { animation: rlTrail 1.5s linear 1.6s infinite; }
+.case-chart.visible .case-trail.t2 { animation-delay: 2.1s; }
+.case-chart.visible .case-trail.t3 { animation-delay: 2.6s; }
 
 .case-chart-caption {
   display: flex;
