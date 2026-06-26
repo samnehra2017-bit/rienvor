@@ -20,6 +20,7 @@
   --accent:           #c9a84c;
   --accent-hover:     #dbbe6a;
   --accent-dim:       rgba(201, 168, 76, 0.08);
+  --rust:             #cf6a43;   /* below-the-line tension (light theme overrides) */
 
   /* Shadow */
   --shadow-sm:  0 2px 12px rgba(0, 0, 0, 0.30);
@@ -4085,6 +4086,124 @@ select option {
   padding: var(--sp-12) 0;
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
+}
+
+/* ── Rating sim ───────────────────────────
+   Phase 3 — the one interactive instance. A single slider: drag your rating,
+   feel the 4.0 line. States carry the thesis — below the line strains (rust),
+   at/above it rests (gold). Leads to the real Rating Check. Distinct from the
+   5-input Storefront Pressure Diagnostic; deliberately spare. */
+.rating-sim {
+  padding: 0 0 var(--sp-12);
+}
+.rsim {
+  max-width: 540px;
+  margin: 0 auto;
+  text-align: center;
+}
+.rsim-readout {
+  line-height: 1;
+  margin-bottom: 0.45rem;
+}
+.rsim-value {
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(2.6rem, 7vw, 3.6rem);
+  font-weight: 600;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.3s ease;
+}
+.rsim-star {
+  color: var(--accent);
+  font-size: 0.5em;
+  margin-left: 0.1em;
+  vertical-align: 0.42em;
+  transition: color 0.3s ease;
+}
+.rsim-cue {
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+  margin: 0 auto var(--sp-5);
+  min-height: 1.1em;
+  transition: color 0.3s ease;
+}
+/* below the line: tension */
+.rsim.is-below .rsim-value,
+.rsim.is-below .rsim-star,
+.rsim.is-below .rsim-cue { color: var(--rust); }
+
+.rsim-track-wrap {
+  position: relative;
+  padding: 0 2px;
+}
+/* the 4.0 line — fixed at centre (slider runs 3.0–5.0, so 4.0 = 50%) */
+.rsim-line {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 1px;
+  height: 18px;
+  background: var(--text-soft);
+  opacity: 0.7;
+  pointer-events: none;
+}
+.rsim-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 3px;
+  background: var(--border);
+  border-radius: var(--radius-pill);
+  outline: none;
+  cursor: pointer;
+  margin: 0;
+}
+.rsim-slider:focus-visible { box-shadow: 0 0 0 3px var(--accent-dim); }
+.rsim-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 4px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent);
+  cursor: grab;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.rsim-slider::-moz-range-thumb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 4px solid var(--bg);
+  box-shadow: 0 0 0 1px var(--accent);
+  cursor: grab;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+}
+.rsim.is-below .rsim-slider::-webkit-slider-thumb { background: var(--rust); box-shadow: 0 0 0 1px var(--rust); }
+.rsim.is-below .rsim-slider::-moz-range-thumb     { background: var(--rust); box-shadow: 0 0 0 1px var(--rust); }
+
+.rsim-scale {
+  display: flex;
+  justify-content: space-between;
+  margin-top: var(--sp-2);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: var(--text-soft);
+}
+.rsim-scale-mid { color: var(--accent); }
+.rsim-cta-link {
+  margin-top: var(--sp-5);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rsim-value, .rsim-star, .rsim-cue,
+  .rsim-slider::-webkit-slider-thumb,
+  .rsim-slider::-moz-range-thumb { transition: none; }
 }
 
 /* =========================================

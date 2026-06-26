@@ -948,7 +948,7 @@
   var revealSelectors = [
     '.hero', '.page-hero',
     '.pillars', '.approach',
-    '.services-detailed', '.services-proof', '.work-list', '.blog-posts-grid',
+    '.services-detailed', '.services-proof', '.rating-sim', '.work-list', '.blog-posts-grid',
     '.contact-grid', '.cta-section', '.legal-page',
     '.about-content', '.about-grid', '.engagement-note',
     '.diagnostic',
@@ -1110,6 +1110,43 @@
     }
 
     Array.prototype.forEach.call(layers, initLayer);
+  })();
+
+  // =========================================
+  // 11. RATING SIM (Phase 3 — the one interactive instance)
+  // Drag your rating; the readout + cue + state (below=rust, above=gold)
+  // update live. Slider runs 3.0–5.0 so 4.0 sits dead-centre. Leads to the
+  // real Rating Check. No animation loop — purely input-driven.
+  // =========================================
+  (function () {
+    var sim = document.querySelector('[data-rating-sim]');
+    if (!sim) return;
+
+    var input = sim.querySelector('[data-rsim-input]');
+    var valEl = sim.querySelector('[data-rsim-value]');
+    var cueEl = sim.querySelector('[data-rsim-cue]');
+    if (!input || !valEl || !cueEl) return;
+
+    function update() {
+      var v = parseFloat(input.value);
+      valEl.textContent = v.toFixed(1);
+
+      var below = v < 3.95;
+      var above = v > 4.05;
+      sim.classList.toggle('is-below', below);
+      sim.classList.toggle('is-above', above);
+
+      if (below) {
+        cueEl.textContent = (4.0 - v).toFixed(1) + ' below the line · installs filtered';
+      } else if (above) {
+        cueEl.textContent = (v - 4.0).toFixed(1) + ' above the line · installs convert';
+      } else {
+        cueEl.textContent = 'right at the line · the threshold';
+      }
+    }
+
+    input.addEventListener('input', update);
+    update();
   })();
 
 }());
