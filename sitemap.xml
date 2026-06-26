@@ -32,9 +32,15 @@
   </url>
   <url>
     <loc>https://rienvor.com/blog</loc>
-    <lastmod>2026-06-20</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://rienvor.com/app-ratings-study-2026</loc>
+    <lastmod>2026-06-26</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://rienvor.com/insight-the-4-0-trust-threshold</loc>

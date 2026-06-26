@@ -2666,6 +2666,99 @@ textarea { resize: vertical; min-height: 130px; }
   .article-head { margin-bottom: var(--sp-6); }
 }
 
+/* ── Research report elements ─────────────
+   Aggregate-data report (app-ratings-study): headline stat band, complaint
+   bars, method box. Theme-aware via vars; static (no JS dependency). */
+.report-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-3);
+  margin: var(--sp-6) 0;
+  padding: var(--sp-5) 0;
+  border-top: 1px solid var(--border-subtle);
+  border-bottom: 1px solid var(--border-subtle);
+}
+.report-stat { text-align: center; }
+.report-stat-num {
+  display: block;
+  font-family: "Cormorant Garamond", serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 600;
+  color: var(--accent);
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+.report-stat-unit { font-size: 0.6em; }
+.report-stat-label {
+  display: block;
+  margin-top: 0.45rem;
+  font-size: var(--text-xs);
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+.report-bars {
+  margin: var(--sp-5) 0 var(--sp-2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+}
+.report-bar-row {
+  display: grid;
+  grid-template-columns: 132px 1fr 46px;
+  align-items: center;
+  gap: var(--sp-2);
+}
+.report-bar-label {
+  font-size: var(--text-sm);
+  color: var(--text-muted);
+  text-align: right;
+}
+.report-bar-track {
+  height: 8px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.report-bar-fill {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: var(--radius-pill);
+}
+.report-bar-val {
+  font-size: var(--text-sm);
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.report-bars-note {
+  font-size: var(--text-sm);
+  color: var(--text-soft);
+  font-style: italic;
+  margin-bottom: var(--sp-5);
+}
+.report-method {
+  margin: var(--sp-6) 0;
+  padding: var(--sp-4);
+  background: var(--surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+}
+.report-method p { font-size: var(--text-sm); color: var(--text-soft); line-height: 1.65; }
+.report-method-head {
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted) !important;
+  margin-bottom: var(--sp-2);
+}
+
+@media (max-width: 640px) {
+  .report-stats { grid-template-columns: repeat(2, 1fr); gap: var(--sp-4) var(--sp-2); }
+  .report-bar-row { grid-template-columns: 92px 1fr 42px; }
+  .report-bar-label { font-size: var(--text-xs); }
+}
+
 /* =========================================
    ABOUT PAGE
    ========================================= */
