@@ -529,11 +529,6 @@ main {
   z-index: 0;
 }
 
-@keyframes slowDrift {
-  from { transform: translate(0, 0) scale(1); }
-  to   { transform: translate(2%, 1.5%) scale(1.04); }
-}
-
 .hero-content,
 .page-hero .container {
   max-width: 860px;
@@ -1295,7 +1290,7 @@ main {
   font-family: "Cormorant Garamond", serif;
   font-size: clamp(2.8rem, 8vw, 4rem);
   font-weight: 600;
-  color: var(--text);
+  color: var(--accent);
   font-variant-numeric: tabular-nums;
 }
 .rl-star {

@@ -1053,6 +1053,8 @@
       path.style.strokeDashoffset = reduce ? 0 : len;
     }
 
+    function eio(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
+
     function run() {
       if (reduce) {
         if (valEl)   valEl.textContent = '4.2';
@@ -1069,14 +1071,14 @@
         if (t0 === null) t0 = ts;
         var e = ts - t0, v;
         if (e < p1) {
-          v = start + (mid - start) * (e / p1);
+          v = start + (mid - start) * eio(Math.min(e / p1, 1));
           if (stateEl) stateEl.textContent = 'recovering';
         } else if (e < p1 + hold) {
           v = mid;
           rl.classList.add('crossed');
           if (stateEl) stateEl.textContent = 'crossing 4.0';
         } else if (e < p1 + hold + p2) {
-          v = mid + (end - mid) * ((e - p1 - hold) / p2);
+          v = mid + (end - mid) * eio(Math.min((e - p1 - hold) / p2, 1));
           if (stateEl) stateEl.textContent = 'held';
         } else {
           if (valEl)   valEl.textContent = end.toFixed(1);
