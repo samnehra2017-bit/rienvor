@@ -4076,36 +4076,15 @@ select option {
   }
 }
 
-/* ── Service Visual Band ──────────────────
-   Full-width decorative divider between
-   .services-detailed and .services-model.
-   CSS background-image: purely decorative,
-   no meaningful content, no alt text needed.
-   Path from CSS: ../images/
+/* ── Services proof ───────────────────────
+   The same Rating Layer object as the homepage, leaner (no metric tiles /
+   founder note): cross-surface recognition is the point. Replaces the old
+   decorative .service-visual-band image between detailed + model sections.
    ─────────────────────────────────────── */
-.service-visual-band {
-  width: 100%;
-  height: 320px;
-  background-image: url('../images/service-visual.webp');
-  background-size: cover;
-  background-position: center 45%;
-  background-repeat: no-repeat;
-  opacity: 0.45;
-  filter: grayscale(30%) contrast(1.05);
+.services-proof {
+  padding: var(--sp-12) 0;
   border-top: 1px solid var(--border-subtle);
   border-bottom: 1px solid var(--border-subtle);
-}
-
-@media (max-width: 768px) {
-  .service-visual-band {
-    height: 200px;
-  }
-}
-
-@media (max-width: 480px) {
-  .service-visual-band {
-    height: 150px;
-  }
 }
 
 /* =========================================

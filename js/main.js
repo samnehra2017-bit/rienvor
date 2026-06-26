@@ -948,7 +948,7 @@
   var revealSelectors = [
     '.hero', '.page-hero',
     '.pillars', '.approach',
-    '.services-detailed', '.work-list', '.blog-posts-grid',
+    '.services-detailed', '.services-proof', '.work-list', '.blog-posts-grid',
     '.contact-grid', '.cta-section', '.legal-page',
     '.about-content', '.about-grid', '.engagement-note',
     '.diagnostic',
@@ -1039,70 +1039,77 @@
   // on scroll-in. prefers-reduced-motion -> static final state.
   // =========================================
   (function () {
-    var rl = document.querySelector('[data-rating-layer]');
-    if (!rl) return;
+    var layers = document.querySelectorAll('[data-rating-layer]');
+    if (!layers.length) return;
 
-    var path    = rl.querySelector('.rl-curve');
-    var valEl   = rl.querySelector('[data-rl-value]');
-    var stateEl = rl.querySelector('[data-rl-state]');
-    var reduce  = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-    if (path && path.getTotalLength) {
-      var len = path.getTotalLength();
-      path.style.strokeDasharray  = len;
-      path.style.strokeDashoffset = reduce ? 0 : len;
-    }
-
+    var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     function eio(t) { return t < 0.5 ? 2 * t * t : -1 + (4 - 2 * t) * t; }
 
-    function run() {
-      if (reduce) {
-        if (valEl)   valEl.textContent = '4.2';
-        if (stateEl) stateEl.textContent = 'held';
-        rl.classList.add('is-drawing', 'crossed');
-        return;
-      }
-      rl.classList.add('is-drawing');
-      if (path) path.style.strokeDashoffset = '0';
+    // Each instance animates independently on its own scroll-in (the same
+    // object can now appear on more than one page/section — homepage proof
+    // band, Services, etc. — and each plays once when it enters view).
+    function initLayer(rl) {
+      var path    = rl.querySelector('.rl-curve');
+      var valEl   = rl.querySelector('[data-rl-value]');
+      var stateEl = rl.querySelector('[data-rl-state]');
 
-      var start = 3.8, mid = 4.0, end = 4.2;
-      var p1 = 950, hold = 320, p2 = 620, t0 = null;
-      function frame(ts) {
-        if (t0 === null) t0 = ts;
-        var e = ts - t0, v;
-        if (e < p1) {
-          v = start + (mid - start) * eio(Math.min(e / p1, 1));
-          if (stateEl) stateEl.textContent = 'recovering';
-        } else if (e < p1 + hold) {
-          v = mid;
-          rl.classList.add('crossed');
-          if (stateEl) stateEl.textContent = 'crossing 4.0';
-        } else if (e < p1 + hold + p2) {
-          v = mid + (end - mid) * eio(Math.min((e - p1 - hold) / p2, 1));
+      if (path && path.getTotalLength) {
+        var len = path.getTotalLength();
+        path.style.strokeDasharray  = len;
+        path.style.strokeDashoffset = reduce ? 0 : len;
+      }
+
+      function run() {
+        if (reduce) {
+          if (valEl)   valEl.textContent = '4.2';
           if (stateEl) stateEl.textContent = 'held';
-        } else {
-          if (valEl)   valEl.textContent = end.toFixed(1);
-          if (stateEl) stateEl.textContent = 'held';
+          rl.classList.add('is-drawing', 'crossed');
           return;
         }
-        if (valEl) valEl.textContent = v.toFixed(1);
+        rl.classList.add('is-drawing');
+        if (path) path.style.strokeDashoffset = '0';
+
+        var start = 3.8, mid = 4.0, end = 4.2;
+        var p1 = 950, hold = 320, p2 = 620, t0 = null;
+        function frame(ts) {
+          if (t0 === null) t0 = ts;
+          var e = ts - t0, v;
+          if (e < p1) {
+            v = start + (mid - start) * eio(Math.min(e / p1, 1));
+            if (stateEl) stateEl.textContent = 'recovering';
+          } else if (e < p1 + hold) {
+            v = mid;
+            rl.classList.add('crossed');
+            if (stateEl) stateEl.textContent = 'crossing 4.0';
+          } else if (e < p1 + hold + p2) {
+            v = mid + (end - mid) * eio(Math.min((e - p1 - hold) / p2, 1));
+            if (stateEl) stateEl.textContent = 'held';
+          } else {
+            if (valEl)   valEl.textContent = end.toFixed(1);
+            if (stateEl) stateEl.textContent = 'held';
+            return;
+          }
+          if (valEl) valEl.textContent = v.toFixed(1);
+          requestAnimationFrame(frame);
+        }
         requestAnimationFrame(frame);
       }
-      requestAnimationFrame(frame);
+
+      var done = false;
+      function trigger() { if (done) return; done = true; run(); }
+      if ('IntersectionObserver' in window) {
+        var obs = new IntersectionObserver(function (entries) {
+          entries.forEach(function (en) {
+            if (en.isIntersecting) { trigger(); obs.unobserve(en.target); }
+          });
+        }, { threshold: 0, rootMargin: '0px 0px -40% 0px' });
+        obs.observe(rl);
+      } else {
+        trigger();
+      }
     }
 
-    var done = false;
-    function trigger() { if (done) return; done = true; run(); }
-    if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (en) {
-          if (en.isIntersecting) { trigger(); obs.unobserve(en.target); }
-        });
-      }, { threshold: 0, rootMargin: '0px 0px -40% 0px' });
-      obs.observe(rl);
-    } else {
-      trigger();
-    }
+    Array.prototype.forEach.call(layers, initLayer);
   })();
 
 }());
