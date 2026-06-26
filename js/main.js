@@ -1122,9 +1122,11 @@
     var sim = document.querySelector('[data-rating-sim]');
     if (!sim) return;
 
-    var input = sim.querySelector('[data-rsim-input]');
-    var valEl = sim.querySelector('[data-rsim-value]');
-    var cueEl = sim.querySelector('[data-rsim-cue]');
+    var input   = sim.querySelector('[data-rsim-input]');
+    var valEl   = sim.querySelector('[data-rsim-value]');
+    var cueEl   = sim.querySelector('[data-rsim-cue]');
+    var fillEl  = sim.querySelector('[data-rsim-fill]');
+    var impEl   = sim.querySelector('[data-rsim-impact]');
     if (!input || !valEl || !cueEl) return;
 
     function update() {
@@ -1142,6 +1144,17 @@
         cueEl.textContent = (v - 4.0).toFixed(1) + ' above the line · installs convert';
       } else {
         cueEl.textContent = 'right at the line · the threshold';
+      }
+
+      // Install-conversion meter: directional consequence of the rating.
+      // Maps rating 3.0–5.0 to a 25–100% fill (monotonic, illustrative).
+      if (fillEl) {
+        var clamped = Math.max(3.0, Math.min(5.0, v));
+        var pct = 25 + ((clamped - 3.0) / 2) * 75;
+        fillEl.style.width = pct.toFixed(0) + '%';
+      }
+      if (impEl) {
+        impEl.textContent = below ? 'suppressed' : (above ? 'converting' : 'at the threshold');
       }
     }
 

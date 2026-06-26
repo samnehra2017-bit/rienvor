@@ -4289,12 +4289,61 @@ select option {
   color: var(--text-soft);
 }
 .rsim-scale-mid { color: var(--accent); }
+/* Install-conversion meter — the consequence of the rating you set.
+   Directional fill (rust below the line, gold above); reads the same
+   states as the readout. Not a forecast. */
+.rsim-impact {
+  max-width: 380px;
+  margin: var(--sp-5) auto 0;
+  text-align: left;
+}
+.rsim-impact-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.5rem;
+}
+.rsim-impact-label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-soft);
+}
+.rsim-impact-state {
+  font-size: var(--text-sm);
+  color: var(--accent);
+  transition: color 0.3s ease;
+}
+.rsim.is-below .rsim-impact-state { color: var(--rust); }
+.rsim-impact-track {
+  display: block;
+  height: 8px;
+  background: var(--border-subtle);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+.rsim-impact-fill {
+  display: block;
+  height: 100%;
+  width: 48%;
+  background: var(--accent);
+  border-radius: var(--radius-pill);
+  transition: width 0.35s ease, background 0.3s ease;
+}
+.rsim.is-below .rsim-impact-fill { background: var(--rust); }
+.rsim-impact-note {
+  font-size: var(--text-xs);
+  color: var(--text-soft);
+  margin-top: 0.55rem;
+  line-height: 1.5;
+}
 .rsim-cta-link {
   margin-top: var(--sp-5);
 }
 
 @media (prefers-reduced-motion: reduce) {
   .rsim-value, .rsim-star, .rsim-cue,
+  .rsim-impact-state, .rsim-impact-fill,
   .rsim-slider::-webkit-slider-thumb,
   .rsim-slider::-moz-range-thumb { transition: none; }
 }
