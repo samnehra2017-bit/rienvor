@@ -2,108 +2,108 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://rienvor.com/</loc>
-    <lastmod>2026-06-20</lastmod>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/about.html</loc>
+    <loc>https://rienvor.com/about</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/services.html</loc>
-    <lastmod>2026-06-20</lastmod>
+    <loc>https://rienvor.com/services</loc>
+    <lastmod>2026-06-26</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/health-check.html</loc>
+    <loc>https://rienvor.com/health-check</loc>
     <lastmod>2026-06-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/work.html</loc>
+    <loc>https://rienvor.com/work</loc>
     <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/blog.html</loc>
+    <loc>https://rienvor.com/blog</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/insight-the-4-0-trust-threshold.html</loc>
+    <loc>https://rienvor.com/insight-the-4-0-trust-threshold</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/insight-why-recovered-ratings-regress.html</loc>
+    <loc>https://rienvor.com/insight-why-recovered-ratings-regress</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/insight-reputation-as-infrastructure.html</loc>
+    <loc>https://rienvor.com/insight-reputation-as-infrastructure</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/insight-why-acquisition-metrics-mislead-founders.html</loc>
+    <loc>https://rienvor.com/insight-why-acquisition-metrics-mislead-founders</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/insight-the-diagnostic-before-the-prescription.html</loc>
+    <loc>https://rienvor.com/insight-the-diagnostic-before-the-prescription</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/insight-organic-authority-as-a-compounding-asset.html</loc>
+    <loc>https://rienvor.com/insight-organic-authority-as-a-compounding-asset</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/insight-the-accountability-gap-in-strategic-advisory.html</loc>
+    <loc>https://rienvor.com/insight-the-accountability-gap-in-strategic-advisory</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/insight-strategic-clarity-under-uncertainty.html</loc>
+    <loc>https://rienvor.com/insight-strategic-clarity-under-uncertainty</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/contact.html</loc>
+    <loc>https://rienvor.com/contact</loc>
     <lastmod>2026-06-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/faq.html</loc>
+    <loc>https://rienvor.com/faq</loc>
     <lastmod>2026-06-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/privacy.html</loc>
+    <loc>https://rienvor.com/privacy</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://rienvor.com/terms.html</loc>
+    <loc>https://rienvor.com/terms</loc>
     <lastmod>2026-05-29</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
