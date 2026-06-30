@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id=GTM-K2M42K7P';f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-K2M42K7P');</script>
+<!-- End Google Tag Manager -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Ask RIENVOR | App-Store Rating Questions, Answered</title>
+  <meta name="description" content="A straight answer on why an app-store rating gets stuck, what it costs you, and what actually moves it. Ask anything about ratings, recovery, and how RIENVOR works.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0a0a0b">
+  <link rel="canonical" href="https://rienvor.com/ask">
+
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+
+  <meta property="og:title" content="Ask RIENVOR | App-Store Rating Questions, Answered">
+  <meta property="og:description" content="A straight answer on why a rating gets stuck, what it costs, and what actually moves it.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://rienvor.com/ask">
+  <meta property="og:image" content="https://rienvor.com/images/og-image.jpg">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ask RIENVOR">
+  <meta name="twitter:description" content="A straight answer on app-store ratings, recovery, and how RIENVOR works.">
+  <meta name="twitter:image" content="https://rienvor.com/images/og-image.jpg">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css?v=8">
+
+  <style>
+  /* ---- Ask RIENVOR assistant (scoped, theme-aware via site tokens) ---- */
+  .ask-tool { padding: var(--sp-5) 0 var(--sp-10); }
+  .ask-wrap { max-width: 780px; }
+  .ask-chat { max-height: 56vh; min-height: 300px; overflow-y: auto;
+    display: flex; flex-direction: column; gap: 16px; padding: 4px 2px 8px; }
+  .ask-wrap .msg { max-width: 90%; line-height: 1.55; font-size: var(--text-base); }
+  .ask-wrap .msg.bot { align-self: flex-start; }
+  .ask-wrap .msg.user { align-self: flex-end; background: var(--surface-raised);
+    border: 1px solid var(--border-subtle); padding: 10px 14px;
+    border-radius: 14px 14px 4px 14px; color: var(--text); }
+  .ask-wrap .who { font-size: var(--text-xs); letter-spacing: 0.18em; color: var(--text-soft);
+    margin: 0 0 6px; text-transform: uppercase; }
+  .ask-wrap .bubble { background: var(--surface); border: 1px solid var(--border-subtle);
+    border-left: 2px solid var(--accent); padding: 14px 16px; border-radius: 4px 14px 14px 14px; }
+  .ask-wrap .bubble p { margin: 0 0 10px; }
+  .ask-wrap .bubble p:last-child { margin: 0; }
+  .ask-wrap .bubble b { color: var(--text); }
+  .ask-wrap .bot a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--border); }
+  .ask-wrap .bot a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+  .ask-wrap .typing { color: var(--text-soft); font-style: italic; font-size: var(--text-sm); }
+  .ask-wrap .rv-soft { margin-top: 10px; font-size: var(--text-sm); color: var(--text-muted); }
+  .ask-wrap .cta { display: inline-block; margin-top: 6px; background: transparent;
+    border: 1px solid var(--accent); color: var(--accent); font-size: var(--text-sm);
+    padding: 7px 14px; border-radius: var(--radius-pill); text-decoration: none; }
+  .ask-wrap .cta:hover { background: var(--accent-dim); border-bottom: 1px solid var(--accent); }
+  .ask-chips-wrap { padding: 12px 2px 0; }
+  .chips-label { font-size: var(--text-xs); letter-spacing: 0.18em; color: var(--text-soft);
+    text-transform: uppercase; margin: 0 2px 9px; display: none; }
+  .ask-wrap .chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ask-wrap .chip { background: var(--surface); border: 1px solid var(--border);
+    color: var(--text-muted); font-size: var(--text-sm); padding: 8px 13px;
+    border-radius: var(--radius-pill); cursor: pointer; transition: border-color var(--ease), color var(--ease); }
+  .ask-wrap .chip:hover { border-color: var(--accent); color: var(--text); }
+  .ask-inputbar { margin-top: 16px; display: flex; gap: 10px; }
+  .ask-inputbar input { flex: 1; background: var(--surface); border: 1px solid var(--border-subtle);
+    color: var(--text); font-size: var(--text-base); font-family: "Inter", sans-serif;
+    padding: 13px 16px; border-radius: var(--radius-md); outline: none; }
+  .ask-inputbar input:focus { border-color: var(--accent); }
+  .ask-inputbar .btn { white-space: nowrap; }
+  .ask-foot { margin-top: 16px; font-size: var(--text-xs); color: var(--text-soft); line-height: 1.5; max-width: 720px; }
+  .ask-foot b { color: var(--text-muted); font-weight: 500; }
+  @media (max-width: 600px) { .ask-chat { max-height: 62vh; } }
+  </style>
+  <script>(function(){try{var t=localStorage.getItem('rv-theme');if(t!=='light'&&t!=='dark'){t=(window.matchMedia&&window.matchMedia('(prefers-color-scheme: light)').matches)?'light':'dark';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','dark');}})();</script>
+</head>
+<body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-K2M42K7P"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+
+  <a href="#main-content" class="hidden-focusable">Skip to content</a>
+
+  <header class="site-header" role="banner">
+    <div class="header-container">
+      <div class="logo">
+        <a href="/" aria-label="RIENVOR — Home">RIENVOR</a><span class="page-label" aria-hidden="true">/ Ask</span>
+      </div>
+      <button
+        class="mobile-nav-toggle"
+        aria-label="Open navigation menu"
+        aria-expanded="false"
+        aria-controls="main-navigation"
+        type="button">
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+        <span class="hamburger-bar" aria-hidden="true"></span>
+      </button>
+      <nav id="main-navigation" class="main-nav" aria-label="Primary navigation">
+        <a href="/">Home</a>
+        <a href="/about">About</a>
+        <a href="/services">Services</a>
+        <a href="/work">Work</a>
+        <a href="/blog">Insights</a>
+        <a href="/health-check">Rating Check</a>
+        <a href="/ask" class="active" aria-current="page">Ask</a>
+        <a href="/contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <div class="nav-overlay" aria-hidden="true" role="presentation"></div>
+
+  <main id="main-content">
+
+    <section class="page-hero" aria-labelledby="ask-hero-heading">
+      <div class="container">
+        <p class="hero-eyebrow">Ask RIENVOR · Free</p>
+        <h1 id="ask-hero-heading">Ask about your <em>rating.</em></h1>
+        <p class="page-subhead">A straight answer on why an app-store rating gets stuck, what it costs you, and what actually moves it. The diagnosis is free. Ask anything below.</p>
+      </div>
+    </section>
+
+    <section class="ask-tool" aria-labelledby="ask-tool-heading">
+      <div class="container">
+        <h2 id="ask-tool-heading" style="position:absolute;left:-9999px">Ask the RIENVOR assistant</h2>
+        <div class="ask-wrap">
+          <div class="ask-chat" id="chat" aria-live="polite"></div>
+          <div class="ask-chips-wrap">
+            <div class="chips-label" id="chips-label">Related</div>
+            <div class="chips" id="chips"></div>
+          </div>
+          <div class="ask-inputbar">
+            <input id="q" type="text" placeholder="e.g. why is my rating stuck below 4.0?" autocomplete="off" aria-label="Ask a question about your rating" />
+            <button id="send" class="btn btn-primary" type="button" data-track="ask-send">Ask</button>
+          </div>
+          <p class="ask-foot"><b>On-message by design.</b> Answers come from a curated knowledge base, not a free-roaming model, so it never invents facts. For anything specific to your app, it points you to Sameer.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="engagement-note-section" aria-labelledby="ask-next-heading">
+      <div class="container">
+        <div class="engagement-note">
+          <p class="work-category">When you're ready</p>
+          <h3 id="ask-next-heading" class="engagement-note-heading">The answers are free.<br>Moving the number is the work.</h3>
+          <p>RIENVOR recovers app-store ratings across the 4.0 line and keeps them there — founder-led, on your real users. The free Rating Health Check shows where you stand; a private conversation takes it from there.</p>
+          <p style="margin-top:1.25rem">
+            <a href="/health-check" class="btn btn-primary" data-track="ask-to-healthcheck">Run the free Rating Health Check</a>
+            <a href="/contact?src=ask" class="btn btn-secondary" data-track="ask-to-contact" style="margin-left:.6rem">Talk to Sameer</a>
+          </p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-top">
+          <div class="footer-brand-col">
+            <a href="/" class="footer-wordmark" aria-label="RIENVOR — Home">RIENVOR</a>
+            <p class="footer-descriptor">Play Store and App Store ratings recovery, stabilisation, and management.<br>Founder-led. Confidential by design.</p>
+            <a href="mailto:hello@rienvor.com" class="footer-email-link" data-track="email-contact">hello@rienvor.com</a>
+          </div>
+          <nav class="footer-nav" aria-label="Footer navigation">
+            <ul class="footer-links">
+              <li><a href="/about">About</a></li>
+              <li><a href="/services">Services</a></li>
+              <li><a href="/work">Work</a></li>
+              <li><a href="/blog">Insights</a></li>
+              <li><a href="/ask">Ask</a></li>
+              <li><a href="/faq">FAQ</a></li>
+              <li><a href="/contact">Contact</a></li>
+            </ul>
+          </nav>
+        </div>
+        <div class="footer-bottom">
+          <p class="footer-copyright">&copy; <span id="current-year">2026</span> RIENVOR. ALL RIGHTS RESERVED.</p>
+          <nav class="footer-legal-links" aria-label="Legal">
+            <a href="/privacy">Privacy</a>
+            <a href="/terms">Terms</a>
+          </nav>
+          <p class="footer-founder">FOUNDED BY SAMEER NEHRA</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/main.js?v=8" defer></script>
+  <script src="js/ask.js?v=1" defer></script>
+</body>
+</html>
