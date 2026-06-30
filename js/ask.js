@@ -287,7 +287,7 @@ const KB = [
   },
   {
     id:"above_four",
-    keys:["above 4","already 4","good rating","4.2","4.5","rating is fine","do i need you","healthy rating",
+    keys:["above 4","already 4","good rating","rating is fine","do i need you","healthy rating",
           "over 4","already above"],
     a:`<p>If you're comfortably above 4.0, you probably don't have an urgent problem, and I won't invent one. The case for working together there is protection, holding the line if you're slipping toward 4.0 or under ongoing negative pressure.</p>
        <p>If it's stable and healthy, enjoy it, and come back if it starts drifting.</p>`,
@@ -486,8 +486,16 @@ function resolve(query){
   // 3) KB scoring
   let best=null, bestScore=0;
   for(const e of KB){ const s=scoreEntry(q,e); if(s>bestScore){bestScore=s; best=e;} }
-  if(bestScore>0) return best;
-  if(captured) return KB.find(k=>k.id==='worth_it');  // they gave a rating with nothing else
+  if(bestScore>0){
+    // Safety net: never tell a sub-4.0 user they're "comfortably above 4.0".
+    // The captured rating, not a stray number in the message, decides above/below.
+    if(best.id==='above_four' && ctx.band && ctx.band!=='high') return KB.find(k=>k.id==='can_help');
+    return best;
+  }
+  if(captured){  // they gave a rating with nothing else — let the band route it
+    if(ctx.band==='high') return KB.find(k=>k.id==='above_four');
+    return KB.find(k=>k.id==='worth_it');
+  }
   return FALLBACK;
 }
 
@@ -502,10 +510,9 @@ function ask(text){
   setTimeout(()=>{ chat.removeChild(t); addBot(entry); }, 420);
 }
 
-renderChips(OPENING_SUGGESTIONS, false);
 document.getElementById('send').onclick = ()=> ask(input.value);
 input.addEventListener('keydown', e=>{ if(e.key==='Enter') ask(input.value); });
-addBot({ a:`<p>Hey, glad you're here. Are you trying to understand how your rating works, or looking at improving it? Either way, ask away, or pick one below.</p>`,
-         related:["Understand how ratings work","Improve my rating","What does a low rating cost me?"] });
+addBot({ a:`<p>Hey, glad you're here. What can I help you with today? I can answer questions about ratings, recovery, pricing, or how RIENVOR works.</p>`,
+         related:["Why is my rating stuck?","How does recovery work?","What does it cost to work with you?"] });
 
 })();
